@@ -1,7 +1,5 @@
-# flutter_colors
-
-# use 
-```dart
+import 'package:app_color/app_color.dart';
+import 'package:flutter/material.dart';
 
 /// Red Colors series from Hex Color codes
 final redColors1 = AppColor.fromHex(
@@ -79,15 +77,10 @@ final redColors3 = AppColor.fromColor(
 ); // Type color
 
 /// Red Medium Light color from redColors1 color series
-final lightColor = redColors1.holoLight; // Type color
+final secondaryColor = redColors1.holoLight; // Type color
 
 /// Red percentage valuable bright color from redColors2 color series
 final lightThemeColor = redColors2.brightness(50); // Percentage value
 
 /// Red percentage valuable dark color from redColors3 color series
 final darkThemeColor = redColors3.darkness(50); // Percentage value
-
-```
-
-
-Collection of color with advanced controlling system.
