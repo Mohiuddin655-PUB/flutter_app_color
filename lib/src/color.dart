@@ -15,145 +15,169 @@ class AppColor extends MaterialColor {
 
   factory AppColor.fromCode(
     int primary, {
-    int? tint50,
-    int? tint100,
-    int? tint200,
-    int? tint300,
-    int? tint400,
-    int? tint500,
-    int? tint600,
-    int? tint700,
-    int? tint800,
-    int? tint900,
-    int? shade50,
-    int? shade100,
-    int? shade200,
-    int? shade300,
-    int? shade400,
-    int? shade500,
-    int? shade600,
-    int? shade700,
-    int? shade800,
-    int? shade900,
+    int? light,
+    int? holoLight,
+    int? dark,
+    int? holoDark,
+    int? brightness05,
+    int? brightness10,
+    int? brightness20,
+    int? brightness30,
+    int? brightness40,
+    int? brightness50,
+    int? brightness60,
+    int? brightness70,
+    int? brightness80,
+    int? brightness90,
+    int? darkness05,
+    int? darkness10,
+    int? darkness20,
+    int? darkness30,
+    int? darkness40,
+    int? darkness50,
+    int? darkness60,
+    int? darkness70,
+    int? darkness80,
+    int? darkness90,
   }) {
     return AppColor._fromPalette(_Palette.fromCode(
       primary,
-      tint50: tint50,
-      tint100: tint100,
-      tint200: tint200,
-      tint300: tint300,
-      tint400: tint400,
-      tint500: tint500,
-      tint600: tint600,
-      tint700: tint700,
-      tint800: tint800,
-      tint900: tint900,
-      shade50: shade50,
-      shade100: shade100,
-      shade200: shade200,
-      shade300: shade300,
-      shade400: shade400,
-      shade500: shade500,
-      shade600: shade600,
-      shade700: shade700,
-      shade800: shade800,
-      shade900: shade900,
+      light: light,
+      holoLight: holoLight,
+      dark: dark,
+      holoDark: holoLight,
+      brightness05: brightness05,
+      brightness10: brightness10,
+      brightness20: brightness20,
+      brightness30: brightness30,
+      brightness40: brightness40,
+      brightness50: brightness50,
+      brightness60: brightness60,
+      brightness70: brightness70,
+      brightness80: brightness80,
+      brightness90: brightness90,
+      darkness05: darkness05,
+      darkness10: darkness10,
+      darkness20: darkness20,
+      darkness30: darkness30,
+      darkness40: darkness40,
+      darkness50: darkness50,
+      darkness60: darkness60,
+      darkness70: darkness70,
+      darkness80: darkness80,
+      darkness90: darkness90,
     ));
   }
 
   factory AppColor.fromColor(
     Color primary, {
-    Color? tint50,
-    Color? tint100,
-    Color? tint200,
-    Color? tint300,
-    Color? tint400,
-    Color? tint500,
-    Color? tint600,
-    Color? tint700,
-    Color? tint800,
-    Color? tint900,
-    Color? shade50,
-    Color? shade100,
-    Color? shade200,
-    Color? shade300,
-    Color? shade400,
-    Color? shade500,
-    Color? shade600,
-    Color? shade700,
-    Color? shade800,
-    Color? shade900,
+    Color? light,
+    Color? holoLight,
+    Color? dark,
+    Color? holoDark,
+    Color? brightness05,
+    Color? brightness10,
+    Color? brightness20,
+    Color? brightness30,
+    Color? brightness40,
+    Color? brightness50,
+    Color? brightness60,
+    Color? brightness70,
+    Color? brightness80,
+    Color? brightness90,
+    Color? darkness05,
+    Color? darkness10,
+    Color? darkness20,
+    Color? darkness30,
+    Color? darkness40,
+    Color? darkness50,
+    Color? darkness60,
+    Color? darkness70,
+    Color? darkness80,
+    Color? darkness90,
   }) {
     return AppColor._fromPalette(_Palette(
       primary: primary,
-      tint50: tint50,
-      tint100: tint100,
-      tint200: tint200,
-      tint300: tint300,
-      tint400: tint400,
-      tint500: tint500,
-      tint600: tint600,
-      tint700: tint700,
-      tint800: tint800,
-      tint900: tint900,
-      shade50: shade50,
-      shade100: shade100,
-      shade200: shade200,
-      shade300: shade300,
-      shade400: shade400,
-      shade500: shade500,
-      shade600: shade600,
-      shade700: shade700,
-      shade800: shade800,
-      shade900: shade900,
+      light: light,
+      holoLight: holoLight,
+      dark: dark,
+      holoDark: holoLight,
+      brightness05: brightness05,
+      brightness10: brightness10,
+      brightness20: brightness20,
+      brightness30: brightness30,
+      brightness40: brightness40,
+      brightness50: brightness50,
+      brightness60: brightness60,
+      brightness70: brightness70,
+      brightness80: brightness80,
+      brightness90: brightness90,
+      darkness05: darkness05,
+      darkness10: darkness10,
+      darkness20: darkness20,
+      darkness30: darkness30,
+      darkness40: darkness40,
+      darkness50: darkness50,
+      darkness60: darkness60,
+      darkness70: darkness70,
+      darkness80: darkness80,
+      darkness90: darkness90,
     ));
   }
 
   factory AppColor.fromHex(
     String primary, {
-    String? tint50,
-    String? tint100,
-    String? tint200,
-    String? tint300,
-    String? tint400,
-    String? tint500,
-    String? tint600,
-    String? tint700,
-    String? tint800,
-    String? tint900,
-    String? shade50,
-    String? shade100,
-    String? shade200,
-    String? shade300,
-    String? shade400,
-    String? shade500,
-    String? shade600,
-    String? shade700,
-    String? shade800,
-    String? shade900,
+    String? light,
+    String? holoLight,
+    String? dark,
+    String? holoDark,
+    String? brightness05,
+    String? brightness10,
+    String? brightness20,
+    String? brightness30,
+    String? brightness40,
+    String? brightness50,
+    String? brightness60,
+    String? brightness70,
+    String? brightness80,
+    String? brightness90,
+    String? darkness05,
+    String? darkness10,
+    String? darkness20,
+    String? darkness30,
+    String? darkness40,
+    String? darkness50,
+    String? darkness60,
+    String? darkness70,
+    String? darkness80,
+    String? darkness90,
   }) {
     return AppColor._fromPalette(_Palette.fromHex(
       primary,
-      tint50: tint50,
-      tint100: tint100,
-      tint200: tint200,
-      tint300: tint300,
-      tint400: tint400,
-      tint500: tint500,
-      tint600: tint600,
-      tint700: tint700,
-      tint800: tint800,
-      tint900: tint900,
-      shade50: shade50,
-      shade100: shade100,
-      shade200: shade200,
-      shade300: shade300,
-      shade400: shade400,
-      shade500: shade500,
-      shade600: shade600,
-      shade700: shade700,
-      shade800: shade800,
-      shade900: shade900,
+      light: light,
+      holoLight: holoLight,
+      dark: dark,
+      holoDark: holoLight,
+      brightness05: brightness05,
+      brightness10: brightness10,
+      brightness20: brightness20,
+      brightness30: brightness30,
+      brightness40: brightness40,
+      brightness50: brightness50,
+      brightness60: brightness60,
+      brightness70: brightness70,
+      brightness80: brightness80,
+      brightness90: brightness90,
+      darkness05: darkness05,
+      darkness10: darkness10,
+      darkness20: darkness20,
+      darkness30: darkness30,
+      darkness40: darkness40,
+      darkness50: darkness50,
+      darkness60: darkness60,
+      darkness70: darkness70,
+      darkness80: darkness80,
+      darkness90: darkness90,
     ));
   }
 
@@ -163,7 +187,7 @@ class AppColor extends MaterialColor {
 
   Color brightness(int percentage) => swatch[-_i(percentage)] ?? Color(primary);
 
-  Color get light => brightness(90);
+  Color get light => brightness(05);
 
   Color get dark => darkness(90);
 
@@ -171,55 +195,75 @@ class AppColor extends MaterialColor {
 
   Color get holoDark => darkness(20);
 
-  Color get tint50 => brightness(5);
+  Color get brightness05 => brightness(05);
 
-  Color get tint100 => brightness(10);
+  Color get brightness10 => brightness(10);
 
-  Color get tint200 => brightness(20);
+  Color get brightness20 => brightness(20);
 
-  Color get tint300 => brightness(30);
+  Color get brightness30 => brightness(30);
 
-  Color get tint400 => brightness(40);
+  Color get brightness40 => brightness(40);
 
-  Color get tint500 => brightness(50);
+  Color get brightness50 => brightness(50);
 
-  Color get tint600 => brightness(60);
+  Color get brightness60 => brightness(60);
 
-  Color get tint700 => brightness(70);
+  Color get brightness70 => brightness(70);
 
-  Color get tint800 => brightness(80);
+  Color get brightness80 => brightness(80);
 
-  Color get tint900 => brightness(90);
+  Color get brightness90 => brightness(90);
 
-  @override
-  Color get shade50 => swatch[50] ?? darkness(5);
+  Color get darkness05 => darkness(05);
 
-  @override
-  Color get shade100 => swatch[100] ?? darkness(10);
+  Color get darkness10 => darkness(10);
 
-  @override
-  Color get shade200 => swatch[200] ?? darkness(20);
+  Color get darkness20 => darkness(20);
 
-  @override
-  Color get shade300 => swatch[300] ?? darkness(30);
+  Color get darkness30 => darkness(30);
 
-  @override
-  Color get shade400 => swatch[400] ?? darkness(40);
+  Color get darkness40 => darkness(40);
 
-  @override
-  Color get shade500 => swatch[500] ?? darkness(50);
+  Color get darkness50 => darkness(50);
 
-  @override
-  Color get shade600 => swatch[600] ?? darkness(60);
+  Color get darkness60 => darkness(60);
 
-  @override
-  Color get shade700 => swatch[700] ?? darkness(70);
+  Color get darkness70 => darkness(70);
+
+  Color get darkness80 => darkness(80);
+
+  Color get darkness90 => darkness(90);
 
   @override
-  Color get shade800 => swatch[800] ?? darkness(80);
+  Color get shade50 => darkness(05);
 
   @override
-  Color get shade900 => swatch[900] ?? darkness(90);
+  Color get shade100 => darkness(10);
+
+  @override
+  Color get shade200 => darkness(20);
+
+  @override
+  Color get shade300 => darkness(30);
+
+  @override
+  Color get shade400 => darkness(40);
+
+  @override
+  Color get shade500 => darkness(50);
+
+  @override
+  Color get shade600 => darkness(60);
+
+  @override
+  Color get shade700 => darkness(70);
+
+  @override
+  Color get shade800 => darkness(80);
+
+  @override
+  Color get shade900 => darkness(90);
 
   @override
   Color operator [](int index) {
