@@ -275,7 +275,7 @@ class AppColor extends MaterialColor {
   }
 
   int _i(int i) {
-    if (i <= 05 || i == 50) {
+    if (i <= 05) {
       return 05;
     } else if (i <= 10 || i == 100) {
       return 10;

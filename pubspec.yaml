@@ -1,6 +1,6 @@
 name: app_color
 description: Collection of color with advanced controlling system.
-version: 0.0.4
+version: 0.0.5
 repository: https://github.com/P-YMR/flutter_colors.git
 
 environment:
