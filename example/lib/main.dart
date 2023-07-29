@@ -35,7 +35,7 @@ class Home extends StatelessWidget {
         child: AspectRatio(
           aspectRatio: 1,
           child: Container(
-            color: AppColors.red,
+            color: DefaultAppColors.red,
             margin: const EdgeInsets.all(90),
           ),
         ),
