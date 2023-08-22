@@ -27,14 +27,7 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // HEX COLOR
-    var hexColor = const Color(0xff0d0c22); // dark black color
-    // var hexColor = const Color(0xff9e9ea7); // grey color
-    debugPrint(hexColor.hex);
-    debugPrint(hexColor.dark.hex);
-    debugPrint(hexColor.holoDark.hex);
-    debugPrint(hexColor.light.hex);
-    debugPrint(hexColor.holoLight.hex);
+    var color = const Color(0xff060511);
     return Scaffold(
       backgroundColor: Colors.white,
       body: Column(
@@ -48,7 +41,7 @@ class Home extends StatelessWidget {
                   width: 200,
                   height: 200,
                   child: Container(
-                    color: hexColor.holoLight,
+                    color: color.holoLight,
                   ),
                 ),
               ),
@@ -63,7 +56,7 @@ class Home extends StatelessWidget {
                   width: 200,
                   height: 200,
                   child: Container(
-                    color: hexColor.holoDark,
+                    color: color.holoDark,
                   ),
                 ),
               ),
