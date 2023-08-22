@@ -28,17 +28,48 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // HEX COLOR
-    var hexColor = AppColor.fromHex("#c7c7c7");
+    var hexColor = const Color(0xff0d0c22); // dark black color
+    // var hexColor = const Color(0xff9e9ea7); // grey color
+    debugPrint(hexColor.hex);
+    debugPrint(hexColor.dark.hex);
+    debugPrint(hexColor.holoDark.hex);
+    debugPrint(hexColor.light.hex);
+    debugPrint(hexColor.holoLight.hex);
     return Scaffold(
-      backgroundColor: hexColor,
-      body: Center(
-        child: AspectRatio(
-          aspectRatio: 1,
-          child: Container(
-            color: DefaultAppColors.red,
-            margin: const EdgeInsets.all(90),
+      backgroundColor: Colors.white,
+      body: Column(
+        children: [
+          Expanded(
+            child: Container(
+              color: Colors.white,
+              width: double.infinity,
+              child: Center(
+                child: SizedBox(
+                  width: 200,
+                  height: 200,
+                  child: Container(
+                    color: hexColor.holoLight,
+                  ),
+                ),
+              ),
+            ),
           ),
-        ),
+          Expanded(
+            child: Container(
+              color: Colors.black,
+              width: double.infinity,
+              child: Center(
+                child: SizedBox(
+                  width: 200,
+                  height: 200,
+                  child: Container(
+                    color: hexColor.holoDark,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

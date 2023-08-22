@@ -4,13 +4,13 @@ class AppColor extends MaterialColor {
   final int primary;
   final Map<int, Color> swatch;
 
-  const AppColor._(
-    this.primary,
-    this.swatch,
-  ) : super(primary, swatch);
+  const AppColor(
+    this.primary, [
+    this.swatch = const {},
+  ]) : super(primary, swatch);
 
   factory AppColor._fromPalette(_Palette palette) {
-    return AppColor._(palette.primary.value, palette.swatch);
+    return AppColor(palette.primary.value, palette.swatch);
   }
 
   factory AppColor.fromCode(
@@ -181,11 +181,13 @@ class AppColor extends MaterialColor {
     ));
   }
 
-  Color transparent(int percentage) => super.withOpacity(percentage / 100);
+  Color brightness(int percentage) {
+    return swatch[-_i(percentage)] ?? Color(primary).brightness(percentage);
+  }
 
-  Color darkness(int percentage) => swatch[_i(percentage)] ?? Color(primary);
-
-  Color brightness(int percentage) => swatch[-_i(percentage)] ?? Color(primary);
+  Color darkness(int percentage) {
+    return swatch[_i(percentage)] ?? Color(primary).darkness(percentage);
+  }
 
   Color get light => brightness(05);
 
@@ -195,46 +197,70 @@ class AppColor extends MaterialColor {
 
   Color get holoDark => darkness(20);
 
-  Color get brightness05 => brightness(05);
+  /// BRIGHT COLORS
+  Color get b05 => brightness(05);
 
-  Color get brightness10 => brightness(10);
+  Color get b10 => brightness(10);
 
-  Color get brightness20 => brightness(20);
+  Color get b20 => brightness(20);
 
-  Color get brightness30 => brightness(30);
+  Color get b30 => brightness(30);
 
-  Color get brightness40 => brightness(40);
+  Color get b40 => brightness(40);
 
-  Color get brightness50 => brightness(50);
+  Color get b50 => brightness(50);
 
-  Color get brightness60 => brightness(60);
+  Color get b60 => brightness(60);
 
-  Color get brightness70 => brightness(70);
+  Color get b70 => brightness(70);
 
-  Color get brightness80 => brightness(80);
+  Color get b80 => brightness(80);
 
-  Color get brightness90 => brightness(90);
+  Color get b90 => brightness(90);
 
-  Color get darkness05 => darkness(05);
+  /// DARK COLORS
+  Color get d05 => darkness(05);
 
-  Color get darkness10 => darkness(10);
+  Color get d10 => darkness(10);
 
-  Color get darkness20 => darkness(20);
+  Color get d20 => darkness(20);
 
-  Color get darkness30 => darkness(30);
+  Color get d30 => darkness(30);
 
-  Color get darkness40 => darkness(40);
+  Color get d40 => darkness(40);
 
-  Color get darkness50 => darkness(50);
+  Color get d50 => darkness(50);
 
-  Color get darkness60 => darkness(60);
+  Color get d60 => darkness(60);
 
-  Color get darkness70 => darkness(70);
+  Color get d70 => darkness(70);
 
-  Color get darkness80 => darkness(80);
+  Color get d80 => darkness(80);
 
-  Color get darkness90 => darkness(90);
+  Color get d90 => darkness(90);
 
+  /// TINT COLORS
+  Color get tint50 => brightness(05);
+
+  Color get tint100 => brightness(10);
+
+  Color get tint200 => brightness(20);
+
+  Color get tint300 => brightness(30);
+
+  Color get tint400 => brightness(40);
+
+  Color get tint500 => brightness(50);
+
+  Color get tint600 => brightness(60);
+
+  Color get tint700 => brightness(70);
+
+  Color get tint800 => brightness(80);
+
+  Color get tint900 => brightness(90);
+
+  /// SHADE COLORS
   @override
   Color get shade50 => darkness(05);
 

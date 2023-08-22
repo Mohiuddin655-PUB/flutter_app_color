@@ -211,18 +211,3 @@ class _Palette {
   }
 }
 
-extension _ColorCodeExtension on int {
-  Color get color => Color(this);
-}
-
-extension _ColorHexExtension on String {
-  int get code {
-    var code = replaceAll("#", "");
-    if (code.length == 6) {
-      return int.tryParse("0xff$code") ?? 0x00000000;
-    }
-    return 0x00000000;
-  }
-
-  Color get color => Color(code);
-}
