@@ -1,6 +1,88 @@
-# flutter_colors
+# app_color
 
-# use 
+Flutter package widening a Color class which can be used to create, convert, compare colors and uses
+in UI. And also for working with editing color
+
+```dart
+// Usage hex from string and alternative color systems
+
+void main() {
+  AppColor.fromHex('000000'); // -> Color(0xFF000000)
+  AppColor.fromHsl(164, 100, 88); // -> Color(0xFFC2FFEF)
+  AppColor.fromXYZ(0.1669, 0.2293, 0.0434); // -> Color(0xFF659027)
+  AppColor.fromCielab(36.80, 55.20, -95.61); // -> Color(0xFF4832F7)
+
+  // Make color darker or lighter
+  Color(0xFF000000).lighter(100); // -> Color(0xFFFFFFFF)
+  Color(0xFF000000).darker(50); // -> Color(0xFF808080)
+
+  // Mix with other colors
+  Color(0xFFFF0000).mix(Color(0xFF00FF00), .25); // -> Color(0xFFBF3F00)
+
+  // Colors conversion
+  Color
+      .fromRGBO(255, 255, 255, 1)
+      .asHex; // -> '#FFFFFFFF'
+}
+```
+
+## Getting Started
+
+In your flutter project add the dependency:
+
+```yaml
+dependencies:
+  app_color: any
+```
+
+## Examples
+
+```dart
+void main() {
+  // HexColor
+  assert(AppColor.fromHex('000000') == Color(0xFF000000));
+  assert(AppColor.fromHex('#000000') == Color(0xFF000000));
+  assert(AppColor.fromHex('FFFFFFFF') == Color(0xFFFFFFFF));
+  assert(AppColor.fromHex('#B1000000') == Color(0xB1000000));
+  assert(AppColor
+      .fromHex('#B1000000')
+      .asHex == '#B1000000');
+
+  // HslColor
+  assert(AppColor.fromHsl(164, 100, 88) == Color(0xFFC2FFEF));
+
+  // HyzColor
+  assert(AppColor.fromXYZ(0.1669, 0.2293, 0.0434) == Color(0xFF659027));
+
+  // CielabColor
+  assert(AppColor.fromCielab(36.80, 55.20, -95.61) == Color(0xFF4832F7));
+}
+```
+
+*Make color darker or lighter*
+
+```dart
+void main() {
+  // [black -> white] lighter by 100 percents
+  assert(Color(0xFF000000).lighter(100) == Color(0xFFFFFFFF));
+  assert(Color(0xFF000000).lx(100) == Color(0xFFFFFFFF));
+
+  // Another lighter example
+  assert(Color.fromARGB(255, 64, 64, 64).lighter(50) == Color.fromARGB(255, 192, 192, 192));
+  assert(Color.fromARGB(255, 64, 64, 64).lx(50) == Color.fromARGB(255, 192, 192, 192));
+
+  // [white -> grey] darker by 50 percents
+  assert(Color(0xFF000000).darker(50) == Color(0xFF808080));
+  assert(Color(0xFF000000).dx(50) == Color(0xFF808080));
+
+  // Another darker example
+  assert(Color.fromARGB(255, 192, 192, 192).darker(25) == Color.fromARGB(255, 128, 128, 128));
+  assert(Color.fromARGB(255, 192, 192, 192).dx(25) == Color.fromARGB(255, 128, 128, 128));
+}
+```
+
+# ListOfColors
+
 ```dart
 
 import 'package:app_color/app_color.dart';
@@ -91,6 +173,3 @@ final lightThemeColor = redColors2.brightness(50); // Percentage value
 final darkThemeColor = redColors3.darkness(50); // Percentage value
 
 ```
-
-
-Collection of color with advanced controlling system.

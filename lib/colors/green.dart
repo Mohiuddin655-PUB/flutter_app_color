@@ -3,7 +3,7 @@ part of '../app_color.dart';
 class GreenColors {
   const GreenColors._();
 
-  static final shamrock = AppColor.fromColor(
+  static final shamrock = AppColor.fromColors(
     brightness05: const Color(0xFFDDF6E9),
     brightness10: const Color(0xFFDDF6E9),
     brightness20: const Color(0xFFBEEDD4),
@@ -27,7 +27,7 @@ class GreenColors {
     darkness90: const Color(0xFF001108),
   );
 
-  static final darkMint = AppColor.fromColor(
+  static final darkMint = AppColor.fromColors(
     brightness05: const Color(0xFFE5F9EE),
     brightness10: const Color(0xFFE5F9EE),
     brightness20: const Color(0xFFCDF3DD),

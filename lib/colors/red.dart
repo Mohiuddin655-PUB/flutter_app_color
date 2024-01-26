@@ -3,7 +3,7 @@ part of '../app_color.dart';
 class RedColors {
   const RedColors._();
 
-  static final salmon = AppColor.fromColor(
+  static final salmon = AppColor.fromColors(
     brightness05: const Color(0xFFFFF1F0),
     brightness10: const Color(0xFFFFF1F0),
     brightness20: const Color(0xFFFFE4E1),

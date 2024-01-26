@@ -2,7 +2,7 @@ import 'package:app_color/app_color.dart';
 import 'package:flutter/material.dart';
 
 /// Red Colors series from Hex Color codes
-final redColors1 = AppColor.fromHex(
+final redColors1 = AppColor.fromHexCodes(
   "#F44336",
   brightness05: "#F65549",
   brightness10: "#F65549",
@@ -27,7 +27,7 @@ final redColors1 = AppColor.fromHex(
 ); // Type color
 
 /// Red Colors series from int color codes
-final redColors2 = AppColor.fromCode(
+final redColors2 = AppColor.fromCodes(
   0xFFF44336,
   brightness05: 0xFFF65549,
   brightness10: 0xFFF65549,
@@ -52,7 +52,7 @@ final redColors2 = AppColor.fromCode(
 ); // Type color
 
 /// Red Colors series from custom red colors
-final redColors3 = AppColor.fromColor(
+final redColors3 = AppColor.fromColors(
   const Color(0xFFF44336),
   brightness05: const Color(0xFFF65549),
   brightness10: const Color(0xFFF65549),
@@ -80,7 +80,7 @@ final redColors3 = AppColor.fromColor(
 final secondaryColor = redColors1.holoLight; // Type color
 
 /// Red percentage valuable bright color from redColors2 color series
-final lightThemeColor = redColors2.brightness(50); // Percentage value
+final lightThemeColor = redColors2.lighter(50); // Percentage value
 
 /// Red percentage valuable dark color from redColors3 color series
-final darkThemeColor = redColors3.darkness(50); // Percentage value
+final darkThemeColor = redColors3.darker(50); // Percentage value

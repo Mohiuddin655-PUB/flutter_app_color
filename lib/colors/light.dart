@@ -3,7 +3,7 @@ part of '../app_color.dart';
 class LightColors {
   const LightColors._();
 
-  static final gainsBoro = AppColor.fromColor(
+  static final gainsBoro = AppColor.fromColors(
     brightness05: const Color(0xFFFBFBFC),
     brightness10: const Color(0xFFFBFBFC),
     brightness20: const Color(0xFFF6F8F8),

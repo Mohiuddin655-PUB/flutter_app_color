@@ -11,4 +11,6 @@ class ThemeColor<T extends Color> extends Color {
         super(light.value);
 
   T detect([bool darkMode = false]) => darkMode ? dark : light;
+
+  T theme(BuildContext context) => context.isDark ? light : dark;
 }

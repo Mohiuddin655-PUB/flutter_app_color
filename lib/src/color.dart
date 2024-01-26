@@ -13,7 +13,129 @@ class AppColor extends MaterialColor {
     return AppColor(palette.primary.value, palette.swatch);
   }
 
-  factory AppColor.fromCode(
+  static final _white = {"x": 95.047, "y": 100, "z": 108.883};
+
+  static int toCielab(double l, double a, double b, [double opacity = 1]) {
+    final Map<String, double> xyz = {
+      'x': a / 500 + (l + 16) / 116,
+      'y': (l + 16) / 116,
+      'z': (l + 16) / 116 - b / 200
+    };
+
+    xyz.forEach((key, value) {
+      final cube = pow(value, 3);
+      if (cube > 0.008856) {
+        xyz[key] = cube as double;
+      } else {
+        xyz[key] = (value - 16 / 116) / 7.787;
+      }
+      xyz[key] = xyz[key]! * _white[key]!;
+    });
+
+    return toXYZ(xyz['x']!, xyz['y']!, xyz['z']!, opacity);
+  }
+
+  static int toHex(String hex) {
+    String hexColor = hex.toUpperCase().replaceAll('#', '');
+    if (hexColor.length == 6) {
+      hexColor = 'FF$hexColor';
+    }
+    return int.parse(hexColor, radix: 16);
+  }
+
+  static int toHsl(double h, double s, double l, [double opacity = 1]) {
+    List<double> rgb = [0, 0, 0];
+
+    final double hue = h / 360 % 1;
+    final double saturation = s / 100;
+    final double luminance = l / 100;
+
+    if (hue < 1 / 6) {
+      rgb[0] = 1;
+      rgb[1] = hue * 6;
+    } else if (hue < 2 / 6) {
+      rgb[0] = 2 - hue * 6;
+      rgb[1] = 1;
+    } else if (hue < 3 / 6) {
+      rgb[1] = 1;
+      rgb[2] = hue * 6 - 2;
+    } else if (hue < 4 / 6) {
+      rgb[1] = 4 - hue * 6;
+      rgb[2] = 1;
+    } else if (hue < 5 / 6) {
+      rgb[0] = hue * 6 - 4;
+      rgb[2] = 1;
+    } else {
+      rgb[0] = 1;
+      rgb[2] = 6 - hue * 6;
+    }
+
+    rgb = rgb.map((val) => val + (1 - saturation) * (0.5 - val)).toList();
+
+    if (luminance < 0.5) {
+      rgb = rgb.map((val) => luminance * 2 * val).toList();
+    } else {
+      rgb = rgb.map((val) => luminance * 2 * (1 - val) + 2 * val - 1).toList();
+    }
+
+    final resultRgb = rgb.map((val) => (val * 255).round()).toList();
+
+    return ((((opacity * 0xff ~/ 1) & 0xff) << 24) |
+            ((resultRgb[0] & 0xff) << 16) |
+            ((resultRgb[1] & 0xff) << 8) |
+            ((resultRgb[2] & 0xff) << 0)) &
+        0xFFFFFFFF;
+  }
+
+  static int toXYZ(double x, double y, double z, [double opacity = 1]) {
+    final double xp = x / 100;
+    final double yp = y / 100;
+    final double zp = z / 100;
+
+    final Map<String, double> rgb = {
+      'r': xp * 3.2406 + yp * -1.5372 + zp * -0.4986,
+      'g': xp * -0.9689 + yp * 1.8758 + zp * 0.0415,
+      'b': xp * 0.0557 + yp * -0.2040 + zp * 1.0570
+    };
+
+    final Map<String, int> resultRgb = {};
+
+    rgb.forEach((key, value) {
+      if (value > 0.0031308) {
+        rgb[key] = 1.055 * pow(value, 1 / 2.4) - 0.055;
+      } else {
+        rgb[key] = value * 12.92;
+      }
+      resultRgb[key] = (rgb[key]! * 255).toInt();
+    });
+
+    return ((((opacity * 0xff ~/ 1) & 0xff) << 24) |
+            ((resultRgb['r']! & 0xff) << 16) |
+            ((resultRgb['g']! & 0xff) << 8) |
+            ((resultRgb['b']! & 0xff) << 0)) &
+        0xFFFFFFFF;
+  }
+
+  factory AppColor.fromCielab(
+    double l,
+    double a,
+    double b, [
+    double opacity = 1,
+  ]) {
+    return AppColor(toCielab(l, a, b, opacity));
+  }
+
+  factory AppColor.fromHex(String hex) => AppColor(toHex(hex));
+
+  factory AppColor.fromHsl(double h, double s, double l, [double opacity = 1]) {
+    return AppColor(toHsl(h, s, l, opacity));
+  }
+
+  factory AppColor.fromXYZ(double x, double y, double z, [double opacity = 1]) {
+    return AppColor(toXYZ(x, y, z, opacity));
+  }
+
+  factory AppColor.fromCodes(
     int primary, {
     int? light,
     int? holoLight,
@@ -69,7 +191,7 @@ class AppColor extends MaterialColor {
     ));
   }
 
-  factory AppColor.fromColor(
+  factory AppColor.fromColors(
     Color primary, {
     Color? light,
     Color? holoLight,
@@ -125,7 +247,7 @@ class AppColor extends MaterialColor {
     ));
   }
 
-  factory AppColor.fromHex(
+  factory AppColor.fromHexCodes(
     String primary, {
     String? light,
     String? holoLight,
@@ -181,115 +303,36 @@ class AppColor extends MaterialColor {
     ));
   }
 
-  Color brightness(int percentage) {
-    return swatch[-_i(percentage)] ?? Color(primary).brightness(percentage);
-  }
-
-  Color darkness(int percentage) {
-    return swatch[_i(percentage)] ?? Color(primary).darkness(percentage);
-  }
-
-  Color get light => brightness(05);
-
-  Color get dark => darkness(90);
-
-  Color get holoLight => brightness(50);
-
-  Color get holoDark => darkness(20);
-
-  /// BRIGHT COLORS
-  Color get b05 => brightness(05);
-
-  Color get b10 => brightness(10);
-
-  Color get b20 => brightness(20);
-
-  Color get b30 => brightness(30);
-
-  Color get b40 => brightness(40);
-
-  Color get b50 => brightness(50);
-
-  Color get b60 => brightness(60);
-
-  Color get b70 => brightness(70);
-
-  Color get b80 => brightness(80);
-
-  Color get b90 => brightness(90);
-
-  /// DARK COLORS
-  Color get d05 => darkness(05);
-
-  Color get d10 => darkness(10);
-
-  Color get d20 => darkness(20);
-
-  Color get d30 => darkness(30);
-
-  Color get d40 => darkness(40);
-
-  Color get d50 => darkness(50);
-
-  Color get d60 => darkness(60);
-
-  Color get d70 => darkness(70);
-
-  Color get d80 => darkness(80);
-
-  Color get d90 => darkness(90);
-
-  /// TINT COLORS
-  Color get tint50 => brightness(05);
-
-  Color get tint100 => brightness(10);
-
-  Color get tint200 => brightness(20);
-
-  Color get tint300 => brightness(30);
-
-  Color get tint400 => brightness(40);
-
-  Color get tint500 => brightness(50);
-
-  Color get tint600 => brightness(60);
-
-  Color get tint700 => brightness(70);
-
-  Color get tint800 => brightness(80);
-
-  Color get tint900 => brightness(90);
-
   /// SHADE COLORS
   @override
-  Color get shade50 => darkness(05);
+  Color get shade50 => darker(05);
 
   @override
-  Color get shade100 => darkness(10);
+  Color get shade100 => darker(10);
 
   @override
-  Color get shade200 => darkness(20);
+  Color get shade200 => darker(20);
 
   @override
-  Color get shade300 => darkness(30);
+  Color get shade300 => darker(30);
 
   @override
-  Color get shade400 => darkness(40);
+  Color get shade400 => darker(40);
 
   @override
-  Color get shade500 => darkness(50);
+  Color get shade500 => darker(50);
 
   @override
-  Color get shade600 => darkness(60);
+  Color get shade600 => darker(60);
 
   @override
-  Color get shade700 => darkness(70);
+  Color get shade700 => darker(70);
 
   @override
-  Color get shade800 => darkness(80);
+  Color get shade800 => darker(80);
 
   @override
-  Color get shade900 => darkness(90);
+  Color get shade900 => darker(90);
 
   @override
   Color operator [](int index) {

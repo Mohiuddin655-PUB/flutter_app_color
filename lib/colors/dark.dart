@@ -3,7 +3,7 @@ part of '../app_color.dart';
 class DarkColors {
   const DarkColors._();
 
-  static final darkJungleGreen = AppColor.fromColor(
+  static final darkJungleGreen = AppColor.fromColors(
     brightness05: const Color(0xFFE3E6E9),
     brightness10: const Color(0xFFE3E6E9),
     brightness20: const Color(0xFFC8CED2),
