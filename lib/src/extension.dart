@@ -208,9 +208,9 @@ extension _ColorHexExtension on String {
 extension ColorContextExtension on BuildContext {
   bool get isDark => MediaQuery.platformBrightnessOf(this) == Brightness.dark;
 
-  Color get themeWhite => isDark ? Colors.black : Colors.white;
+  Color get themeA => isDark ? Colors.white : Colors.black;
 
-  Color get themeBlack => isDark ? Colors.white : Colors.black;
+  Color get themeB => isDark ? Colors.black : Colors.white;
 
-  Color theme(ThemeColor color) => isDark ? color.light : color.dark;
+  Color theme(Color x, Color y) => isDark ? x : y;
 }
