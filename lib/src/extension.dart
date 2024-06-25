@@ -1,4 +1,4 @@
-part of '../app_color.dart';
+import 'package:flutter/material.dart';
 
 extension ColorHelper on Color? {
   Color get use => this ?? Colors.transparent;
@@ -128,56 +128,56 @@ extension ColorHelper on Color? {
 
   Color get t99 => tx(99);
 
-  Color tx(int percentage) {
-    assert(percentage >= 1 && percentage <= 100);
+  Color tx(double percentage) {
+    assert(percentage >= 0 && percentage <= 100);
     return use.withOpacity(percentage / 100);
   }
 
-  Color transparency(int percentage) => tx(percentage);
+  Color transparency(double percentage) => tx(percentage);
 
-  Color lx(int percentage) {
-    assert(percentage >= 1 && percentage <= 100);
-    final int rgbPercent = (percentage / 100 * 255).round();
-
-    int red = use.red + rgbPercent;
-    int green = use.green + rgbPercent;
-    int blue = use.blue + rgbPercent;
-
-    if (red > 255) {
-      red = 255;
-    }
-    if (green > 255) {
-      green = 255;
-    }
-    if (blue > 255) {
-      blue = 255;
-    }
-    return Color.fromARGB(use.alpha, red, green, blue);
+  bool get isDark {
+    final base = this ?? Colors.transparent;
+    int r = base.red;
+    int g = base.green;
+    int b = base.blue;
+    final luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+    return luminance < 0.5;
   }
 
-  Color lighter(int percentage) => lx(percentage);
-
-  Color dx(int percentage) {
-    assert(percentage >= 1 && percentage <= 100);
-    final int rgbPercent = (percentage / 100 * 255).round();
-
-    int red = use.red - rgbPercent;
-    int green = use.green - rgbPercent;
-    int blue = use.blue - rgbPercent;
-
-    if (red < 0) {
-      red = 0;
-    }
-    if (green < 0) {
-      green = 0;
-    }
-    if (blue < 0) {
-      blue = 0;
-    }
-    return Color.fromARGB(use.alpha, red, green, blue);
+  Color auto(double percentage, [bool root = false]) {
+    if (root) return isDark ? dx(percentage) : lx(percentage);
+    return isDark ? lx(percentage) : dx(percentage);
   }
 
-  Color darker(int percentage) => dx(percentage);
+  Color lx(double percentage) {
+    assert(percentage >= 0 && percentage <= 100);
+    final x = (percentage / 100 * 255).round();
+    final base = this ?? Colors.transparent;
+    int r = base.red + x;
+    int g = base.green + x;
+    int b = base.blue + x;
+    if (r > 255) r = 255;
+    if (g > 255) g = 255;
+    if (b > 255) b = 255;
+    return Color.fromARGB(base.alpha, r, g, b);
+  }
+
+  Color lighter(double percentage) => lx(percentage);
+
+  Color dx(double percentage) {
+    assert(percentage >= 0 && percentage <= 100);
+    final x = (percentage / 100 * 255).round();
+    final base = this ?? Colors.transparent;
+    int r = base.red - x;
+    int g = base.green - x;
+    int b = base.blue - x;
+    if (r < 0) r = 0;
+    if (g < 0) g = 0;
+    if (b < 0) b = 0;
+    return Color.fromARGB(base.alpha, r, g, b);
+  }
+
+  Color darker(double percentage) => dx(percentage);
 
   Color? mix(Color another, double amount) => Color.lerp(this, another, amount);
 
@@ -189,28 +189,16 @@ extension ColorHelper on Color? {
   }
 }
 
-extension _ColorCodeExtension on int {
-  Color get color => Color(this);
-}
-
-extension _ColorHexExtension on String {
-  int get code {
-    var code = replaceAll("#", "");
-    if (code.length == 6) {
-      return int.tryParse("0xff$code") ?? 0x00000000;
-    }
-    return 0x00000000;
+extension ColorContextExtension on BuildContext {
+  bool get isDarkMode {
+    final tb = Theme.of(this).brightness == Brightness.dark;
+    final mb = MediaQuery.of(this).platformBrightness == Brightness.dark;
+    return tb || mb;
   }
 
-  Color get color => Color(code);
-}
+  Color get themeA => isDarkMode ? Colors.white : Colors.black;
 
-extension ColorContextExtension on BuildContext {
-  bool get isDark => MediaQuery.platformBrightnessOf(this) == Brightness.dark;
+  Color get themeB => isDarkMode ? Colors.black : Colors.white;
 
-  Color get themeA => isDark ? Colors.white : Colors.black;
-
-  Color get themeB => isDark ? Colors.black : Colors.white;
-
-  Color theme(Color x, Color y) => isDark ? x : y;
+  Color theme(Color light, [Color? dark]) => isDarkMode ? dark ?? light : light;
 }

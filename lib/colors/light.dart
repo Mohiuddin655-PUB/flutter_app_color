@@ -1,4 +1,6 @@
-part of '../app_color.dart';
+import 'dart:ui';
+
+import '../src/color.dart';
 
 class LightColors {
   const LightColors._();

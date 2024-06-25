@@ -1,4 +1,6 @@
-part of '../app_color.dart';
+import 'package:flutter/material.dart';
+
+import '../src/extension.dart';
 
 class ThemeColor<T extends Color> extends Color {
   final T light;
@@ -10,7 +12,7 @@ class ThemeColor<T extends Color> extends Color {
   })  : dark = dark ?? light,
         super(light.value);
 
-  T detect([bool darkMode = false]) => darkMode ? dark : light;
+  T detect(bool darkMode) => darkMode ? dark : light;
 
-  T theme(BuildContext context) => context.isDark ? light : dark;
+  T theme(BuildContext context) => detect(context.isDarkMode);
 }
