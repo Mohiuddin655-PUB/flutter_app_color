@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../src/extension.dart';
+import '../src/theme.dart';
 
 class ThemeColor<T extends Color> extends Color {
   final T light;

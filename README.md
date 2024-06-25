@@ -3,36 +3,13 @@
 Flutter package widening a Color class which can be used to create, convert, compare colors and uses
 in UI. And also for working with editing color
 
-```dart
-// Usage hex from string and alternative color systems
-
-void main() {
-  AppColor.fromHex('000000'); // -> Color(0xFF000000)
-  AppColor.fromHsl(164, 100, 88); // -> Color(0xFFC2FFEF)
-  AppColor.fromXYZ(0.1669, 0.2293, 0.0434); // -> Color(0xFF659027)
-  AppColor.fromCielab(36.80, 55.20, -95.61); // -> Color(0xFF4832F7)
-
-  // Make color darker or lighter
-  Color(0xFF000000).lighter(100); // -> Color(0xFFFFFFFF)
-  Color(0xFF000000).darker(50); // -> Color(0xFF808080)
-
-  // Mix with other colors
-  Color(0xFFFF0000).mix(Color(0xFF00FF00), .25); // -> Color(0xFFBF3F00)
-
-  // Colors conversion
-  Color
-      .fromRGBO(255, 255, 255, 1)
-      .asHex; // -> '#FFFFFFFF'
-}
-```
-
 ## Getting Started
 
 In your flutter project add the dependency:
 
 ```yaml
 dependencies:
-  app_color: any
+  app_color: ^1.0.1
 ```
 
 ## Examples
@@ -83,23 +60,78 @@ void main() {
 
 ## COLOR THEME
 ```dart
-import 'package:app_color/app_color.dart';
+import 'package:app_color/theme.dart';
 import 'package:flutter/material.dart';
 
 void main() {
   ColorTheme.init(
-    data: [
+    // COLORS
+    background: const ColorThemeConfig(
+      light: ThemeColors(
+        primary: Colors.green,
+      ),
+      dark: ThemeColors(
+        primary: Colors.red,
+      ),
+    ),
+    text: const ColorThemeConfig(
+      light: ThemeColors(
+        light: Colors.white,
+        dark: Colors.black,
+      ),
+      dark: ThemeColors(
+        light: Colors.black,
+        dark: Colors.white,
+      ),
+    ),
+    colors: [
       const ColorThemeData(
-        name: "scaffold",
+        name: "xyz",
         config: ColorThemeConfig(
           light: ThemeColors(
-            primary: Colors.green,
+            primary: Colors.white24,
           ),
           dark: ThemeColors(
-            primary: Colors.red,
+            primary: Colors.black26,
           ),
         ),
       ),
+      //... add more color theme as custom
+    ],
+    // GRADIENTS
+    backgroundGradient: GradientThemeConfig(
+      light: ThemeGradients(
+        primary: [
+          Colors.white,
+          Colors.grey.shade400,
+        ],
+      ),
+      dark: ThemeGradients(
+        primary: [
+          Colors.black,
+          Colors.grey.shade900,
+        ],
+      ),
+    ),
+    gradients: [
+      GradientThemeData(
+        name: "xyz",
+        config: GradientThemeConfig(
+          light: ThemeGradients(
+            primary: [
+              Colors.orange.shade400,
+              Colors.red.shade400,
+            ],
+          ),
+          dark: ThemeGradients(
+            primary: [
+              Colors.orange.shade900,
+              Colors.red.shade900,
+            ],
+          ),
+        ),
+      ),
+      //... add more gradient theme as custom
     ],
   );
   runApp(const MyApp());
@@ -114,8 +146,64 @@ class MyApp extends StatelessWidget {
       themeMode: ThemeMode.light,
       theme: ThemeData.light(),
       darkTheme: ThemeData.dark(),
-      home: Scaffold(
-        backgroundColor: context.themeOf("scaffold").primary,
+      home: const Home(),
+    );
+  }
+}
+
+class Home extends StatelessWidget {
+  const Home({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Column(
+        children: [
+          Expanded(
+            child: Container(
+              color: context.backgroundColor.primary,
+              width: double.infinity,
+              alignment: Alignment.center,
+              child: Container(
+                width: 200,
+                height: 200,
+                color: context.colorOf("xyz").primary,
+                alignment: Alignment.center,
+                child: Text(
+                  "SOLID COLOR",
+                  style: TextStyle(
+                    color: context.dark,
+                  ),
+                ),
+              ),
+            ),
+          ),
+          Expanded(
+            child: Container(
+              width: double.infinity,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: context.backgroundGradient.primary ?? [],
+                ),
+              ),
+              child: Container(
+                width: 200,
+                height: 200,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: context.gradientOf("xyz").primary ?? [],
+                  ),
+                ),
+                child: const Text(
+                  "GRADIENT COLOR",
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -124,7 +212,7 @@ class MyApp extends StatelessWidget {
 
 ## COLOR CUSTOMIZATION
 ```dart
-import 'package:app_color/app_color.dart';
+import 'package:app_color/color.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -189,14 +277,14 @@ class MyApp extends StatelessWidget {
                         child: AspectRatio(
                           aspectRatio: 1,
                           child: Container(
-                            color: Colors.green.shade400.auto(10),
+                            color: Colors.green.shade400.themeA(10),
                             margin: const EdgeInsets.all(32),
                             alignment: Alignment.center,
                             child: Text(
                               "AUTO 10%\nDETECT ON COLOR \nBRIGHTNESS",
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                color: Colors.green.shade400.auto(75, true),
+                                color: Colors.green.shade400.themeB(75),
                               ),
                             ),
                           ),
@@ -212,14 +300,14 @@ class MyApp extends StatelessWidget {
                         child: AspectRatio(
                           aspectRatio: 1,
                           child: Container(
-                            color: Colors.green.shade600.auto(10),
+                            color: Colors.green.shade600.themeA(10),
                             margin: const EdgeInsets.all(32),
                             alignment: Alignment.center,
                             child: Text(
                               "AUTO 10%\nDETECT ON COLOR \nBRIGHTNESS",
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                color: Colors.green.shade600.auto(75, true),
+                                color: Colors.green.shade600.themeB(75),
                               ),
                             ),
                           ),

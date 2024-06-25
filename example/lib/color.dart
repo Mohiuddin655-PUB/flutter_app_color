@@ -1,4 +1,4 @@
-import 'package:app_color/app_color.dart';
+import 'package:app_color/color.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -63,14 +63,14 @@ class MyApp extends StatelessWidget {
                         child: AspectRatio(
                           aspectRatio: 1,
                           child: Container(
-                            color: Colors.green.shade400.auto(10),
+                            color: Colors.green.shade400.themeA(10),
                             margin: const EdgeInsets.all(32),
                             alignment: Alignment.center,
                             child: Text(
                               "AUTO 10%\nDETECT ON COLOR \nBRIGHTNESS",
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                color: Colors.green.shade400.auto(75, true),
+                                color: Colors.green.shade400.themeB(75),
                               ),
                             ),
                           ),
@@ -86,14 +86,14 @@ class MyApp extends StatelessWidget {
                         child: AspectRatio(
                           aspectRatio: 1,
                           child: Container(
-                            color: Colors.green.shade600.auto(10),
+                            color: Colors.green.shade600.themeA(10),
                             margin: const EdgeInsets.all(32),
                             alignment: Alignment.center,
                             child: Text(
                               "AUTO 10%\nDETECT ON COLOR \nBRIGHTNESS",
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                color: Colors.green.shade600.auto(75, true),
+                                color: Colors.green.shade600.themeB(75),
                               ),
                             ),
                           ),

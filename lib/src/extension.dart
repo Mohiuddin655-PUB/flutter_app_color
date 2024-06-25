@@ -128,12 +128,31 @@ extension ColorHelper on Color? {
 
   Color get t99 => tx(99);
 
+  /// SHADE COLORS
+  Color get shade50 => lx(05);
+
+  Color get shade100 => lx(10);
+
+  Color get shade200 => lx(20);
+
+  Color get shade300 => lx(30);
+
+  Color get shade400 => lx(40);
+
+  Color get shade500 => use;
+
+  Color get shade600 => dx(60);
+
+  Color get shade700 => dx(70);
+
+  Color get shade800 => dx(80);
+
+  Color get shade900 => dx(90);
+
   Color tx(double percentage) {
     assert(percentage >= 0 && percentage <= 100);
     return use.withOpacity(percentage / 100);
   }
-
-  Color transparency(double percentage) => tx(percentage);
 
   bool get isDark {
     final base = this ?? Colors.transparent;
@@ -144,10 +163,14 @@ extension ColorHelper on Color? {
     return luminance < 0.5;
   }
 
-  Color auto(double percentage, [bool root = false]) {
+  Color _theme(double percentage, [bool root = false]) {
     if (root) return isDark ? dx(percentage) : lx(percentage);
     return isDark ? lx(percentage) : dx(percentage);
   }
+
+  Color themeA(double percentage) => _theme(percentage, false);
+
+  Color themeB(double percentage) => _theme(percentage, true);
 
   Color lx(double percentage) {
     assert(percentage >= 0 && percentage <= 100);
@@ -187,18 +210,4 @@ extension ColorHelper on Color? {
     var c = "0x${use.value.toRadixString(16)}";
     return int.tryParse(c) ?? 0x00000000;
   }
-}
-
-extension ColorContextExtension on BuildContext {
-  bool get isDarkMode {
-    final tb = Theme.of(this).brightness == Brightness.dark;
-    final mb = MediaQuery.of(this).platformBrightness == Brightness.dark;
-    return tb || mb;
-  }
-
-  Color get themeA => isDarkMode ? Colors.white : Colors.black;
-
-  Color get themeB => isDarkMode ? Colors.black : Colors.white;
-
-  Color theme(Color light, [Color? dark]) => isDarkMode ? dark ?? light : light;
 }
