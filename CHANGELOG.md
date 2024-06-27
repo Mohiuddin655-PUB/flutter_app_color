@@ -1,3 +1,5 @@
-## 1.0.1
+## 1.0.2
 
-* Theme color and theme color scheme attach
+* Default color supports
+* Appbar color support
+* Bottom color support

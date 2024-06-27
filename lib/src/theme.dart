@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 
 import '../colors/red.dart';
 
+const _kAppbar = "appbar";
 const _kBase = "base";
 const _kBackground = "background";
-const _kBorder = "border";
+const _kBottom = "bottom";
 const _kDialog = "dialog";
 const _kDivider = "divider";
 const _kIcon = "icon";
@@ -12,6 +13,23 @@ const _kScaffold = "scaffold";
 const _kShadow = "shadow";
 const _kSurface = "surface";
 const _kText = "text";
+
+final _kDefault = ColorThemeConfig(
+  light: ThemeColors(
+    light: Colors.white,
+    dark: Colors.black,
+    mid: Colors.grey.shade400,
+    optional: Colors.transparent,
+    error: RedColors.salmon.shade400,
+  ),
+  dark: ThemeColors(
+    light: Colors.black,
+    dark: Colors.white,
+    mid: Colors.grey.shade600,
+    optional: Colors.transparent,
+    error: RedColors.salmon.shade600,
+  ),
+);
 
 typedef ColorThemeConfigs = Map<String, ColorThemeConfig?>;
 typedef GradientThemeConfigs = Map<String, GradientThemeConfig?>;
@@ -25,7 +43,7 @@ abstract class _Theme<T extends Object?> {
   final T? disable;
   final T? light;
   final T? dark;
-  final T? middle;
+  final T? mid;
   final T? holo;
   final T? optional;
 
@@ -38,7 +56,7 @@ abstract class _Theme<T extends Object?> {
     this.disable,
     this.light,
     this.dark,
-    this.middle,
+    this.mid,
     this.holo,
     this.optional,
   });
@@ -52,7 +70,7 @@ abstract class _Theme<T extends Object?> {
     final T? disable,
     final T? light,
     final T? dark,
-    final T? middle,
+    final T? mid,
     final T? holo,
     final T? optional,
   });
@@ -66,7 +84,7 @@ abstract class _Theme<T extends Object?> {
     final T? disable,
     final T? light,
     final T? dark,
-    final T? middle,
+    final T? mid,
     final T? holo,
     final T? optional,
   });
@@ -82,7 +100,7 @@ class ThemeColors extends _Theme<Color> {
     super.disable,
     super.light,
     super.dark,
-    super.middle,
+    super.mid,
     super.holo,
     super.optional,
   });
@@ -97,7 +115,7 @@ class ThemeColors extends _Theme<Color> {
     Color? disable,
     Color? light,
     Color? dark,
-    Color? middle,
+    Color? mid,
     Color? holo,
     Color? optional,
   }) {
@@ -110,7 +128,7 @@ class ThemeColors extends _Theme<Color> {
       disable: disable ?? this.disable,
       light: light ?? this.light,
       dark: dark ?? this.dark,
-      middle: middle ?? this.middle,
+      mid: mid ?? this.mid,
       holo: holo ?? this.holo,
       optional: optional ?? this.optional,
     );
@@ -126,7 +144,7 @@ class ThemeColors extends _Theme<Color> {
     Color? disable,
     Color? light,
     Color? dark,
-    Color? middle,
+    Color? mid,
     Color? holo,
     Color? optional,
   }) {
@@ -139,7 +157,7 @@ class ThemeColors extends _Theme<Color> {
       disable: this.disable ?? disable,
       light: this.light ?? light,
       dark: this.dark ?? dark,
-      middle: this.middle ?? middle,
+      mid: this.mid ?? mid,
       holo: this.holo ?? holo,
       optional: this.optional ?? optional,
     );
@@ -156,7 +174,7 @@ class ThemeGradients extends _Theme<List<Color>> {
     super.disable,
     super.light,
     super.dark,
-    super.middle,
+    super.mid,
     super.holo,
     super.optional,
   });
@@ -171,7 +189,7 @@ class ThemeGradients extends _Theme<List<Color>> {
     List<Color>? disable,
     List<Color>? light,
     List<Color>? dark,
-    List<Color>? middle,
+    List<Color>? mid,
     List<Color>? holo,
     List<Color>? optional,
   }) {
@@ -184,7 +202,7 @@ class ThemeGradients extends _Theme<List<Color>> {
       disable: disable ?? this.disable,
       light: light ?? this.light,
       dark: dark ?? this.dark,
-      middle: middle ?? this.middle,
+      mid: mid ?? this.mid,
       holo: holo ?? this.holo,
       optional: optional ?? this.optional,
     );
@@ -200,7 +218,7 @@ class ThemeGradients extends _Theme<List<Color>> {
     List<Color>? disable,
     List<Color>? light,
     List<Color>? dark,
-    List<Color>? middle,
+    List<Color>? mid,
     List<Color>? holo,
     List<Color>? optional,
   }) {
@@ -213,7 +231,7 @@ class ThemeGradients extends _Theme<List<Color>> {
       disable: this.disable ?? disable,
       light: this.light ?? light,
       dark: this.dark ?? dark,
-      middle: this.middle ?? middle,
+      mid: this.mid ?? mid,
       holo: this.holo ?? holo,
       optional: this.optional ?? optional,
     );
@@ -271,24 +289,7 @@ class GradientThemeConfig extends _ThemeConfig<ThemeGradients> {
 }
 
 class ColorTheme {
-  final ColorThemeConfigs _colors = {
-    _kBase: ColorThemeConfig(
-      light: ThemeColors(
-        light: Colors.white,
-        dark: Colors.black,
-        middle: Colors.grey.shade400,
-        optional: Colors.transparent,
-        error: RedColors.salmon.shade400,
-      ),
-      dark: ThemeColors(
-        light: Colors.black,
-        dark: Colors.white,
-        middle: Colors.grey.shade600,
-        optional: Colors.transparent,
-        error: RedColors.salmon.shade600,
-      ),
-    ),
-  };
+  final ColorThemeConfigs _colors = {_kBase: _kDefault};
   final GradientThemeConfigs _gradients = {};
 
   static ColorTheme? _i;
@@ -307,35 +308,38 @@ class ColorTheme {
 
   static void init({
     // COLORS
-    final ColorThemeConfig? base,
-    final ColorThemeConfig? background,
-    final ColorThemeConfig? border,
-    final ColorThemeConfig? dialog,
-    final ColorThemeConfig? divider,
-    final ColorThemeConfig? icon,
-    final ColorThemeConfig? scaffold,
-    final ColorThemeConfig? shadow,
-    final ColorThemeConfig? surface,
-    final ColorThemeConfig? text,
-    final Iterable<ColorThemeData> colors = const [],
+    ColorThemeConfig? appbar,
+    ColorThemeConfig? base,
+    ColorThemeConfig? background,
+    ColorThemeConfig? bottom,
+    ColorThemeConfig? dialog,
+    ColorThemeConfig? divider,
+    ColorThemeConfig? icon,
+    ColorThemeConfig? scaffold,
+    ColorThemeConfig? shadow,
+    ColorThemeConfig? surface,
+    ColorThemeConfig? text,
+    Iterable<ColorThemeData> colors = const [],
     // GRADIENTS
-    final GradientThemeConfig? baseGradient,
-    final GradientThemeConfig? backgroundGradient,
-    final GradientThemeConfig? borderGradient,
-    final GradientThemeConfig? dialogGradient,
-    final GradientThemeConfig? dividerGradient,
-    final GradientThemeConfig? iconGradient,
-    final GradientThemeConfig? scaffoldGradient,
-    final GradientThemeConfig? shadowGradient,
-    final GradientThemeConfig? surfaceGradient,
-    final GradientThemeConfig? textGradient,
-    final Iterable<GradientThemeData> gradients = const [],
+    GradientThemeConfig? appbarGradient,
+    GradientThemeConfig? baseGradient,
+    GradientThemeConfig? backgroundGradient,
+    GradientThemeConfig? bottomGradient,
+    GradientThemeConfig? dialogGradient,
+    GradientThemeConfig? dividerGradient,
+    GradientThemeConfig? iconGradient,
+    GradientThemeConfig? scaffoldGradient,
+    GradientThemeConfig? shadowGradient,
+    GradientThemeConfig? surfaceGradient,
+    GradientThemeConfig? textGradient,
+    Iterable<GradientThemeData> gradients = const [],
   }) {
     _i = ColorTheme._(
       // COLORS
+      appbar: appbar,
       base: base,
       background: background,
-      border: border,
+      bottom: bottom,
       dialog: dialog,
       divider: divider,
       icon: icon,
@@ -345,9 +349,10 @@ class ColorTheme {
       text: text,
       colors: colors,
       // GRADIENTS
+      appbarGradient: appbarGradient,
       baseGradient: baseGradient,
       backgroundGradient: backgroundGradient,
-      borderGradient: borderGradient,
+      bottomGradient: bottomGradient,
       dialogGradient: dialogGradient,
       dividerGradient: dividerGradient,
       iconGradient: iconGradient,
@@ -361,34 +366,37 @@ class ColorTheme {
 
   ColorTheme._({
     // COLORS
-    final ColorThemeConfig? base,
-    final ColorThemeConfig? background,
-    final ColorThemeConfig? border,
-    final ColorThemeConfig? dialog,
-    final ColorThemeConfig? divider,
-    final ColorThemeConfig? icon,
-    final ColorThemeConfig? scaffold,
-    final ColorThemeConfig? shadow,
-    final ColorThemeConfig? surface,
-    final ColorThemeConfig? text,
-    final Iterable<ColorThemeData> colors = const [],
+    ColorThemeConfig? appbar,
+    ColorThemeConfig? base,
+    ColorThemeConfig? background,
+    ColorThemeConfig? bottom,
+    ColorThemeConfig? dialog,
+    ColorThemeConfig? divider,
+    ColorThemeConfig? icon,
+    ColorThemeConfig? scaffold,
+    ColorThemeConfig? shadow,
+    ColorThemeConfig? surface,
+    ColorThemeConfig? text,
+    Iterable<ColorThemeData> colors = const [],
     // GRADIENTS
-    final GradientThemeConfig? baseGradient,
-    final GradientThemeConfig? backgroundGradient,
-    final GradientThemeConfig? borderGradient,
-    final GradientThemeConfig? dialogGradient,
-    final GradientThemeConfig? dividerGradient,
-    final GradientThemeConfig? iconGradient,
-    final GradientThemeConfig? scaffoldGradient,
-    final GradientThemeConfig? shadowGradient,
-    final GradientThemeConfig? surfaceGradient,
-    final GradientThemeConfig? textGradient,
-    final Iterable<GradientThemeData> gradients = const [],
+    GradientThemeConfig? appbarGradient,
+    GradientThemeConfig? baseGradient,
+    GradientThemeConfig? backgroundGradient,
+    GradientThemeConfig? bottomGradient,
+    GradientThemeConfig? dialogGradient,
+    GradientThemeConfig? dividerGradient,
+    GradientThemeConfig? iconGradient,
+    GradientThemeConfig? scaffoldGradient,
+    GradientThemeConfig? shadowGradient,
+    GradientThemeConfig? surfaceGradient,
+    GradientThemeConfig? textGradient,
+    Iterable<GradientThemeData> gradients = const [],
   }) {
     // COLORS
+    if (appbar != null) _colors[_kAppbar] = appbar;
     if (base != null) _colors[_kBase] = base;
     if (background != null) _colors[_kBackground] = background;
-    if (border != null) _colors[_kBorder] = border;
+    if (bottom != null) _colors[_kBottom] = bottom;
     if (dialog != null) _colors[_kDialog] = dialog;
     if (divider != null) _colors[_kDivider] = divider;
     if (icon != null) _colors[_kIcon] = icon;
@@ -400,11 +408,12 @@ class ColorTheme {
       _colors.addEntries(colors.map((e) => MapEntry(e.name, e.config)));
     }
     // GRADIENTS
+    if (appbarGradient != null) _gradients[_kAppbar] = appbarGradient;
     if (baseGradient != null) _gradients[_kBase] = baseGradient;
     if (backgroundGradient != null) {
       _gradients[_kBackground] = backgroundGradient;
     }
-    if (borderGradient != null) _gradients[_kBorder] = borderGradient;
+    if (bottom != null) _gradients[_kBottom] = bottomGradient;
     if (dialogGradient != null) _gradients[_kDialog] = dialogGradient;
     if (dividerGradient != null) _gradients[_kDivider] = dividerGradient;
     if (iconGradient != null) _gradients[_kIcon] = iconGradient;
@@ -418,11 +427,13 @@ class ColorTheme {
   }
 
   // COLORS
+  ColorThemeConfig? get appbar => _colors[_kAppbar];
+
   ColorThemeConfig? get base => _colors[_kBase];
 
   ColorThemeConfig? get background => _colors[_kBackground];
 
-  ColorThemeConfig? get border => _colors[_kBorder];
+  ColorThemeConfig? get bottom => _colors[_kBottom];
 
   ColorThemeConfig? get dialog => _colors[_kDialog];
 
@@ -439,11 +450,13 @@ class ColorTheme {
   ColorThemeConfig? get text => _colors[_kText];
 
   // GRADIENTS
+  GradientThemeConfig? get appbarGradient => _gradients[_kAppbar];
+
   GradientThemeConfig? get baseGradient => _gradients[_kBase];
 
   GradientThemeConfig? get backgroundGradient => _gradients[_kBackground];
 
-  GradientThemeConfig? get borderGradient => _gradients[_kBorder];
+  GradientThemeConfig? get bottomGradient => _gradients[_kBottom];
 
   GradientThemeConfig? get dialogGradient => _gradients[_kDialog];
 
@@ -462,6 +475,7 @@ class ColorTheme {
 
 extension ColorThemeHelper on BuildContext {
   // THEME
+
   ThemeData get _t => Theme.of(this);
 
   bool get isDarkMode {
@@ -483,6 +497,7 @@ extension ColorThemeHelper on BuildContext {
   }
 
   // COLORS
+
   Color get primary => baseColor.primary ?? _t.primaryColor;
 
   Color get secondary => baseColor.secondary ?? _t.colorScheme.secondary;
@@ -493,7 +508,7 @@ extension ColorThemeHelper on BuildContext {
 
   Color? get dark => baseColor.dark;
 
-  Color? get middle => baseColor.middle;
+  Color? get mid => baseColor.mid;
 
   Color? get holo => baseColor.holo;
 
@@ -505,17 +520,29 @@ extension ColorThemeHelper on BuildContext {
 
   Color? get optional => baseColor.optional;
 
+  ThemeColors get appbarColor {
+    return colorOf(_kAppbar).defaults(primary: _t.appBarTheme.backgroundColor);
+  }
+
   ThemeColors get baseColor {
+    final x = _kDefault.detect(isDarkMode);
     return colorOf(_kBase).defaults(
-      primary: _t.primaryColor,
+      primary: _t.colorScheme.primary,
       secondary: _t.colorScheme.secondary,
       tertiary: _t.colorScheme.tertiary,
+      light: x.light,
+      dark: x.dark,
+      mid: x.mid,
+      optional: x.optional,
+      error: x.error,
     );
   }
 
   ThemeColors get backgroundColor => colorOf(_kBackground);
 
-  ThemeColors get borderColor => colorOf(_kBorder);
+  ThemeColors get bottomColor {
+    return colorOf(_kBottom).defaults(primary: _t.bottomAppBarTheme.color);
+  }
 
   ThemeColors get dialogColor {
     return colorOf(_kDialog).defaults(
@@ -547,11 +574,13 @@ extension ColorThemeHelper on BuildContext {
 
   // GRADIENTS
 
+  ThemeGradients get appbarGradient => gradientOf(_kAppbar);
+
   ThemeGradients get baseGradient => gradientOf(_kBase);
 
   ThemeGradients get backgroundGradient => gradientOf(_kBackground);
 
-  ThemeGradients get borderGradient => gradientOf(_kBorder);
+  ThemeGradients get bottomGradient => gradientOf(_kBottom);
 
   ThemeGradients get dialogGradient => gradientOf(_kDialog);
 
