@@ -334,7 +334,7 @@ class ColorTheme {
     GradientThemeConfig? textGradient,
     Iterable<GradientThemeData> gradients = const [],
   }) {
-    _i = ColorTheme._(
+    _i = ColorTheme(
       // COLORS
       appbar: appbar,
       base: base,
@@ -364,7 +364,7 @@ class ColorTheme {
     );
   }
 
-  ColorTheme._({
+  ColorTheme({
     // COLORS
     ColorThemeConfig? appbar,
     ColorThemeConfig? base,
@@ -425,6 +425,8 @@ class ColorTheme {
       _gradients.addEntries(gradients.map((e) => MapEntry(e.name, e.config)));
     }
   }
+
+  void createInstance() => _i = this;
 
   // COLORS
   ColorThemeConfig? get appbar => _colors[_kAppbar];
