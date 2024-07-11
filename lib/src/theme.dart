@@ -289,6 +289,7 @@ class GradientThemeConfig extends _ThemeConfig<ThemeGradients> {
 }
 
 class ColorTheme {
+  final ThemeMode? themeMode;
   final ColorThemeConfigs _colors = {_kBase: _kDefault};
   final GradientThemeConfigs _gradients = {};
 
@@ -302,11 +303,25 @@ class ColorTheme {
     }
   }
 
+  static bool isDarkMode(BuildContext context) {
+    final mode = _i?.themeMode;
+    if (mode != null) {
+      if (mode == ThemeMode.system) {
+        return MediaQuery.platformBrightnessOf(context) == Brightness.dark;
+      } else {
+        return mode == ThemeMode.dark;
+      }
+    } else {
+      return Theme.of(context).brightness == Brightness.dark;
+    }
+  }
+
   static ColorThemeConfig? colorOf(String name) => _i?._colors[name];
 
   static GradientThemeConfig? gradientOf(String name) => _i?._gradients[name];
 
   static void init({
+    ThemeMode? themeMode,
     // COLORS
     ColorThemeConfig? appbar,
     ColorThemeConfig? base,
@@ -335,6 +350,7 @@ class ColorTheme {
     Iterable<GradientThemeData> gradients = const [],
   }) {
     _i = ColorTheme(
+      themeMode: themeMode,
       // COLORS
       appbar: appbar,
       base: base,
@@ -365,6 +381,7 @@ class ColorTheme {
   }
 
   ColorTheme({
+    this.themeMode,
     // COLORS
     ColorThemeConfig? appbar,
     ColorThemeConfig? base,
@@ -480,11 +497,7 @@ extension ColorThemeHelper on BuildContext {
 
   ThemeData get _t => Theme.of(this);
 
-  bool get isDarkMode {
-    final tb = Theme.of(this).brightness == Brightness.dark;
-    final mb = MediaQuery.platformBrightnessOf(this) == Brightness.dark;
-    return tb || mb;
-  }
+  bool get isDarkMode => ColorTheme.isDarkMode(this);
 
   ThemeColors colorOf(String name) {
     final x = ColorTheme.colorOf(name)?.detect(isDarkMode);
