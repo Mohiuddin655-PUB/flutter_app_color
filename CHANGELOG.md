@@ -1,3 +1,7 @@
+## 1.0.5
+
+* Light and dark color fixed value support
+
 ## 1.0.4
 
 * Default theme mode support
