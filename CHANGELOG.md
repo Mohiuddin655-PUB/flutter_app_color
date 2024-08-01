@@ -1,3 +1,7 @@
+## 1.0.7
+
+* ThemeGradient supports
+
 ## 1.0.6
 
 * Soft and deep color support with defaults
