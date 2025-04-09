@@ -1,4 +1,4 @@
-library app_color;
+library;
 
 export 'color.dart';
 export 'colors.dart';

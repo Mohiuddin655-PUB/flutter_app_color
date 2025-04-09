@@ -60,11 +60,12 @@ void main() {
 
 ## COLOR THEME
 ```dart
+
 import 'package:app_color/theme.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  ColorTheme.init(
+  ColorInitializer(
     // COLORS
     background: const ColorThemeConfig(
       light: ThemeColors(
@@ -133,7 +134,7 @@ void main() {
       ),
       //... add more gradient theme as custom
     ],
-  );
+  ).createInstance();
   runApp(const MyApp());
 }
 
@@ -143,19 +144,23 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      themeMode: ThemeMode.light,
+      themeMode: ThemeMode.dark,
       theme: ThemeData.light(),
       darkTheme: ThemeData.dark(),
-      home: const Home(),
+      home: const NormalImplement(),
     );
   }
 }
 
-class Home extends StatelessWidget {
-  const Home({super.key});
+class NormalImplement extends StatelessWidget {
+  const NormalImplement({super.key});
 
   @override
   Widget build(BuildContext context) {
+    // final themeColor = ColorData.from(context);
+    // final themeColor = context.color;
+    // final lightColor = ColorData.of(false);
+    // final darkColor = ColorData.of(true);
     return Scaffold(
       body: Column(
         children: [
@@ -208,11 +213,34 @@ class Home extends StatelessWidget {
     );
   }
 }
+
+class ImplementWithMixin extends StatefulWidget {
+  const ImplementWithMixin({super.key});
+
+  @override
+  State<ImplementWithMixin> createState() => _ImplementWithMixinState();
+}
+
+class _ImplementWithMixinState extends State<ImplementWithMixin>
+    with ColorMixin {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: red,
+      child: Text(
+        "Text color",
+        style: TextStyle(
+          color: textColor.primary,
+        ),
+      ),
+    );
+  }
+}
 ```
 
 ## COLOR CUSTOMIZATION
 ```dart
-import 'package:app_color/color.dart';
+import 'package:app_color/helper.dart';
 import 'package:flutter/material.dart';
 
 void main() {

@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-import '../src/extension.dart';
+import 'helper.dart';
 
 class AppColor extends MaterialColor {
   final int primary;
@@ -163,11 +163,11 @@ class AppColor extends MaterialColor {
   Color get shade900 => dx(90);
 
   @override
-  Color operator [](int index) {
-    if (index < 0) {
-      return dx(min(max(index < -100 ? index / 10 : index * -1.0, 0), 100));
+  Color operator [](int key) {
+    if (key < 0) {
+      return dx(min(max(key < -100 ? key / 10 : key * -1.0, 0), 100));
     } else {
-      return lx(min(max(index > 100 ? index / 10 : index * 1.0, 0), 100));
+      return lx(min(max(key > 100 ? key / 10 : key * 1.0, 0), 100));
     }
   }
 }

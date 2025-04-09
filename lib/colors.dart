@@ -1,4 +1,4 @@
-library colors;
+library;
 
 export 'colors/dark.dart';
 export 'colors/green.dart';

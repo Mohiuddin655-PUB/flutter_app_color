@@ -1,0 +1,20 @@
+part of 'theme.dart';
+
+const _kAppbar = "appbar";
+const _kBase = "base";
+const _kBackground = "background";
+const _kBottom = "bottom";
+const _kCard = "card";
+const _kDialog = "dialog";
+const _kDivider = "divider";
+const _kHighlight = "highlight";
+const _kHint = "hint";
+const _kHover = "hover";
+const _kIcon = "icon";
+const _kLabel = "label";
+const _kPlaceholder = "placeholder";
+const _kScaffold = "scaffold";
+const _kShadow = "shadow";
+const _kSplash = "scaffold";
+const _kSurface = "surface";
+const _kText = "text";

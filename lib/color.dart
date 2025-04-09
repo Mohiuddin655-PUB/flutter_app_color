@@ -1,4 +1,4 @@
-library color;
+library;
 
 export 'src/color.dart';
-export 'src/extension.dart';
+export 'src/helper.dart';

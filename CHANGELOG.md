@@ -1,3 +1,9 @@
+## 1.0.8
+
+* Add ColorMixin to use easy by state
+* Apply ColorData to use single parse to multi-call
+* Add some colors and gradient instances
+
 ## 1.0.7
 
 * ThemeGradient supports

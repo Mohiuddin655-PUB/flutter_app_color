@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../src/theme.dart';
+import 'theme.dart';
 
 class ThemeGradient<T extends Iterable<Color>> extends Iterable<Color> {
   final T light;
@@ -11,9 +11,9 @@ class ThemeGradient<T extends Iterable<Color>> extends Iterable<Color> {
     T? dark,
   }) : dark = dark ?? light;
 
-  T detect(bool darkMode) => darkMode ? dark : light;
+  T of(BuildContext context) => detect(context.isDarkMode);
 
-  T theme(BuildContext context) => detect(context.isDarkMode);
+  T detect(bool darkMode) => darkMode ? dark : light;
 
   @override
   Iterator<Color> get iterator => light.iterator;

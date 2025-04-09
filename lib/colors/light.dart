@@ -1,7 +1,7 @@
-import '../color.dart';
+import 'dart:ui';
 
 class LightColors {
   const LightColors._();
 
-  static const gainsBoro = AppColor(0xFFD7DCDF);
+  static const gainsBoro = Color(0xFFD7DCDF);
 }
