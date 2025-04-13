@@ -109,15 +109,15 @@ final class ColorData {
 
     final base = ThemeColors.baseOf(dark, theme);
 
-    final x = ColorInitializer._i?._customs.entries.map((e) {
+    final x = ColorTheme._i?._customs.entries.map((e) {
       if (e.value == null) return null;
-      return MapEntry(e.key, e.value!.detect(dark).x(base));
+      return MapEntry(e.key, e.value!.detect(dark));
     }).whereType<MapEntry<String, ThemeColors>>();
 
     Map<String, ThemeColors> colors =
         x == null || x.isEmpty ? {} : Map.fromEntries(x);
 
-    final y = ColorInitializer._i?._customGradients.entries.map((e) {
+    final y = ColorTheme._i?._customGradients.entries.map((e) {
       if (e.value == null) return null;
       return MapEntry(e.key, e.value!.detect(dark));
     }).whereType<MapEntry<String, ThemeGradients>>();
@@ -127,13 +127,13 @@ final class ColorData {
 
     return ColorData._(
       isDarkMode: dark,
-      green: ColorInitializer.greenOf(dark),
-      blue: ColorInitializer.blueOf(dark),
-      red: ColorInitializer.redOf(dark),
-      orange: ColorInitializer.orangeOf(dark),
-      yellow: ColorInitializer.yellowOf(dark),
-      purple: ColorInitializer.purpleOf(dark),
-      pink: ColorInitializer.pinkOf(dark),
+      green: ColorTheme.greenOf(dark),
+      blue: ColorTheme.blueOf(dark),
+      red: ColorTheme.redOf(dark),
+      orange: ColorTheme.orangeOf(dark),
+      yellow: ColorTheme.yellowOf(dark),
+      purple: ColorTheme.purpleOf(dark),
+      pink: ColorTheme.pinkOf(dark),
       appbar: ThemeColors.of(_kAppbar, dark).defaults(
         primary: theme.appBarTheme.backgroundColor,
       ),
@@ -204,8 +204,7 @@ final class ColorData {
   }
 
   factory ColorData.from(BuildContext context) {
-    return ColorData.of(
-        ColorInitializer.isDarkMode(context), Theme.of(context));
+    return ColorData.of(ColorTheme.isDarkMode(context), Theme.of(context));
   }
 
   static ColorData get light => ColorData.of(false);

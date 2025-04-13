@@ -15,7 +15,7 @@ mixin ColorMixin<T extends StatefulWidget> on State<T> {
 
   ColorData color = ColorData.light;
 
-  bool get isDarkMode => ColorInitializer.isDarkMode(context);
+  bool get isDarkMode => ColorTheme.isDarkMode(context);
 
   Color get green => color.green;
 
@@ -23,7 +23,7 @@ mixin ColorMixin<T extends StatefulWidget> on State<T> {
 
   Color get red => color.red;
 
-  Color get orange => color.red;
+  Color get orange => color.orange;
 
   Color get yellow => color.yellow;
 
@@ -135,7 +135,7 @@ mixin ColorMixin<T extends StatefulWidget> on State<T> {
 
   ThemeGradients get shadowGradient => color.shadowGradient;
 
-  ThemeGradients get splashGradient => color.surfaceGradient;
+  ThemeGradients get splashGradient => color.splashGradient;
 
   ThemeGradients get surfaceGradient => color.surfaceGradient;
 

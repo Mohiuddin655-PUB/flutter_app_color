@@ -5,7 +5,7 @@ extension ColorThemeHelper on BuildContext {
 
   ThemeData get _t => Theme.of(this);
 
-  bool get isDarkMode => ColorInitializer.isDarkMode(this);
+  bool get isDarkMode => ColorTheme.isDarkMode(this);
 
   ColorData get color => ColorData.from(this);
 
@@ -15,7 +15,7 @@ extension ColorThemeHelper on BuildContext {
 
   Color get red => color.red;
 
-  Color get orange => color.red;
+  Color get orange => color.orange;
 
   Color get yellow => color.yellow;
 
@@ -127,7 +127,7 @@ extension ColorThemeHelper on BuildContext {
 
   ThemeGradients get shadowGradient => color.shadowGradient;
 
-  ThemeGradients get splashGradient => color.surfaceGradient;
+  ThemeGradients get splashGradient => color.splashGradient;
 
   ThemeGradients get surfaceGradient => color.surfaceGradient;
 
