@@ -65,7 +65,7 @@ import 'package:app_color/theme.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  ColorInitializer(
+  ColorTheme(
     // COLORS
     background: const ColorThemeConfig(
       light: ThemeColors(
@@ -102,16 +102,20 @@ void main() {
     // GRADIENTS
     backgroundGradient: GradientThemeConfig(
       light: ThemeGradients(
-        primary: [
-          Colors.white,
-          Colors.grey.shade400,
-        ],
+        primary: LinearGradient(
+          colors: [
+            Colors.white,
+            Colors.grey.shade400,
+          ],
+        ),
       ),
       dark: ThemeGradients(
-        primary: [
-          Colors.black,
-          Colors.grey.shade900,
-        ],
+        primary: LinearGradient(
+          colors: [
+            Colors.white,
+            Colors.grey.shade400,
+          ],
+        ),
       ),
     ),
     gradients: [
@@ -119,22 +123,26 @@ void main() {
         name: "xyz",
         config: GradientThemeConfig(
           light: ThemeGradients(
-            primary: [
-              Colors.orange.shade400,
-              Colors.red.shade400,
-            ],
+            primary: LinearGradient(
+              colors: [
+                Colors.white,
+                Colors.grey.shade400,
+              ],
+            ),
           ),
           dark: ThemeGradients(
-            primary: [
-              Colors.orange.shade900,
-              Colors.red.shade900,
-            ],
+            primary: LinearGradient(
+              colors: [
+                Colors.white,
+                Colors.grey.shade400,
+              ],
+            ),
           ),
         ),
       ),
       //... add more gradient theme as custom
     ],
-  ).createInstance();
+  ).apply();
   runApp(const MyApp());
 }
 
