@@ -29,6 +29,12 @@ class ColorThemeConfig extends _ThemeConfig<ThemeColors> {
     super.dark,
   });
 
+  const ColorThemeConfig.none() : super(light: const ThemeColors());
+
+  factory ColorThemeConfig.of(String name) {
+    return ColorTheme.i.colorConfigOf(name);
+  }
+
   static ColorThemeConfig? tryParse(Object? source) {
     if (source is String) source = jsonDecode(source);
     if (source is! Map) return null;
@@ -49,6 +55,12 @@ class GradientThemeConfig extends _ThemeConfig<ThemeGradients> {
     required super.light,
     super.dark,
   });
+
+  const GradientThemeConfig.none() : super(light: const ThemeGradients());
+
+  factory GradientThemeConfig.of(String name) {
+    return ColorTheme.i.gradientConfigOf(name);
+  }
 
   static GradientThemeConfig? tryParse(Object? source) {
     if (source is String) source = jsonDecode(source);

@@ -9,7 +9,7 @@ In your flutter project add the dependency:
 
 ```yaml
 dependencies:
-  app_color: ^1.0.1
+  app_color: ^x.y.z
 ```
 
 ## Examples
@@ -248,7 +248,7 @@ class _ImplementWithMixinState extends State<ImplementWithMixin>
 
 ## COLOR CUSTOMIZATION
 ```dart
-import 'package:app_color/helper.dart';
+import 'package:app_color/extension.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -274,7 +274,7 @@ class MyApp extends StatelessWidget {
                     width: 200,
                     height: 200,
                     child: Container(
-                      color: Colors.white.dx(10),
+                      color: Colors.white.dx(.1),
                       alignment: Alignment.center,
                       child: const Text("DARK 10%"),
                     ),
@@ -291,7 +291,7 @@ class MyApp extends StatelessWidget {
                     width: 200,
                     height: 200,
                     child: Container(
-                      color: Colors.black.lx(10),
+                      color: Colors.black.lx(.1),
                       alignment: Alignment.center,
                       child: const Text(
                         "LIGHT 10%",
@@ -300,58 +300,6 @@ class MyApp extends StatelessWidget {
                     ),
                   ),
                 ),
-              ),
-            ),
-            Expanded(
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Container(
-                      color: Colors.green.shade400,
-                      width: double.infinity,
-                      child: Center(
-                        child: AspectRatio(
-                          aspectRatio: 1,
-                          child: Container(
-                            color: Colors.green.shade400.themeA(10),
-                            margin: const EdgeInsets.all(32),
-                            alignment: Alignment.center,
-                            child: Text(
-                              "AUTO 10%\nDETECT ON COLOR \nBRIGHTNESS",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: Colors.green.shade400.themeB(75),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Container(
-                      color: Colors.green.shade600,
-                      width: double.infinity,
-                      child: Center(
-                        child: AspectRatio(
-                          aspectRatio: 1,
-                          child: Container(
-                            color: Colors.green.shade600.themeA(10),
-                            margin: const EdgeInsets.all(32),
-                            alignment: Alignment.center,
-                            child: Text(
-                              "AUTO 10%\nDETECT ON COLOR \nBRIGHTNESS",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: Colors.green.shade600.themeB(75),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
               ),
             ),
           ],

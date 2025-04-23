@@ -113,10 +113,8 @@ class ThemeColors extends _Theme<Color> {
     super.deep,
   });
 
-  factory ThemeColors.of(String name, bool isDarkMode) {
-    final x = ColorTheme._i?._colors[name]?.detect(isDarkMode);
-    if (x != null) return x;
-    return const ThemeColors();
+  factory ThemeColors.of(String name, [bool? isDarkMode]) {
+    return ColorTheme.i.colorsOf(name, isDarkMode);
   }
 
   factory ThemeColors.baseOf(bool isDarkMode, ThemeData theme) {
@@ -274,10 +272,8 @@ class ThemeGradients extends _Theme<Gradient> {
     super.deep,
   });
 
-  factory ThemeGradients.of(String name, bool isDarkMode) {
-    final x = ColorTheme._i?._gradients[name]?.detect(isDarkMode);
-    if (x != null) return x;
-    return const ThemeGradients();
+  factory ThemeGradients.of(String name, [bool? isDarkMode]) {
+    return ColorTheme.i.gradientsOf(name, isDarkMode);
   }
 
   factory ThemeGradients.parse(Object? source) {

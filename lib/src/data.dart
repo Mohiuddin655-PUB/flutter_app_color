@@ -163,14 +163,14 @@ final class ColorData {
 
     return ColorData._(
       isDarkMode: dark,
-      green: ColorTheme.greenOf(dark),
-      grey: ColorTheme.greyOf(dark),
-      blue: ColorTheme.blueOf(dark),
-      red: ColorTheme.redOf(dark),
-      orange: ColorTheme.orangeOf(dark),
-      yellow: ColorTheme.yellowOf(dark),
-      purple: ColorTheme.purpleOf(dark),
-      pink: ColorTheme.pinkOf(dark),
+      green: ColorTheme.i.greenOf(dark),
+      grey: ColorTheme.i.greyOf(dark),
+      blue: ColorTheme.i.blueOf(dark),
+      red: ColorTheme.i.redOf(dark),
+      orange: ColorTheme.i.orangeOf(dark),
+      yellow: ColorTheme.i.yellowOf(dark),
+      purple: ColorTheme.i.purpleOf(dark),
+      pink: ColorTheme.i.pinkOf(dark),
       appbar: ThemeColors.of(_kAppbar, dark).defaults(
         primary: theme.appBarTheme.backgroundColor,
       ),
@@ -223,7 +223,7 @@ final class ColorData {
   }
 
   factory ColorData.from(BuildContext context) {
-    return ColorData.of(ColorTheme.isDarkMode(context), Theme.of(context));
+    return ColorData.of(ColorTheme.i.isDarkMode(context), Theme.of(context));
   }
 
   static ColorData get light => ColorData.of(false);

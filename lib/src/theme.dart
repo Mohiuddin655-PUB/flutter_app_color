@@ -1,11 +1,12 @@
 import 'dart:convert';
 import 'dart:math';
 
-import 'package:app_color/color.dart';
+import 'package:app_color/extension.dart';
 import 'package:flutter/material.dart';
 
 import 'theme_color.dart';
 
+part 'colors.dart';
 part 'config.dart';
 part 'content.dart';
 part 'context.dart';
@@ -14,9 +15,7 @@ part 'defaults.dart';
 part 'keys.dart';
 part 'types.dart';
 
-class ColorTheme {
-  final String? name;
-  final ThemeMode? _themeMode;
+class ColorTheme extends ChangeNotifier {
   final ThemeColor? _green;
   final ThemeColor? _grey;
   final ThemeColor? _blue;
@@ -29,118 +28,65 @@ class ColorTheme {
   final _Colors _customs = {};
   final _Gradients _gradients = {};
 
+  ThemeColor get green => _green ?? kGreen;
+
+  ThemeColor get grey => _grey ?? kGrey;
+
+  ThemeColor get blue => _blue ?? kBlue;
+
+  ThemeColor get red => _red ?? kRed;
+
+  ThemeColor get orange => _orange ?? kOrange;
+
+  ThemeColor get yellow => _yellow ?? kYellow;
+
+  ThemeColor get purple => _purple ?? kPurple;
+
+  ThemeColor get pink => _pink ?? kPink;
+
+  ColorThemeConfig get colors => colorConfigOf(_kBase);
+
+  ColorThemeConfig get appbar => colorConfigOf(_kAppbar);
+
+  ColorThemeConfig get background => colorConfigOf(_kBackground);
+
+  ColorThemeConfig get bottom => colorConfigOf(_kBottom);
+
+  ColorThemeConfig get card => colorConfigOf(_kCard);
+
+  ColorThemeConfig get dialog => colorConfigOf(_kDialog);
+
+  ColorThemeConfig get divider => colorConfigOf(_kDivider);
+
+  ColorThemeConfig get highlight => colorConfigOf(_kHighlight);
+
+  ColorThemeConfig get hint => colorConfigOf(_kHint);
+
+  ColorThemeConfig get hover => colorConfigOf(_kHover);
+
+  ColorThemeConfig get icon => colorConfigOf(_kIcon);
+
+  ColorThemeConfig get label => colorConfigOf(_kLabel);
+
+  ColorThemeConfig get placeholder => colorConfigOf(_kPlaceholder);
+
+  ColorThemeConfig get scaffold => colorConfigOf(_kScaffold);
+
+  ColorThemeConfig get shadow => colorConfigOf(_kShadow);
+
+  ColorThemeConfig get splash => colorConfigOf(_kSplash);
+
+  ColorThemeConfig get surface => colorConfigOf(_kSurface);
+
+  ColorThemeConfig get text => colorConfigOf(_kText);
+
+  ThemeMode? _themeMode;
+
+  bool get isDark => _themeMode == ThemeMode.dark;
+
   static ColorTheme? _i;
 
-  static ColorTheme get i {
-    if (_i != null) {
-      return _i!;
-    } else {
-      throw UnimplementedError("$ColorTheme not activate yet!");
-    }
-  }
-
-  static bool isDarkMode(BuildContext context) {
-    final mode = _i?._themeMode;
-    if (mode != null) {
-      if (mode == ThemeMode.system) {
-        return MediaQuery.platformBrightnessOf(context) == Brightness.dark;
-      } else {
-        return mode == ThemeMode.dark;
-      }
-    } else {
-      return Theme.of(context).brightness == Brightness.dark;
-    }
-  }
-
-  static Color greenOf(bool dark) => _i?._green?.detect(dark) ?? kGreen;
-
-  static Color greyOf(bool dark) => _i?._grey?.detect(dark) ?? kGrey;
-
-  static Color blueOf(bool dark) => _i?._blue?.detect(dark) ?? kBlue;
-
-  static Color redOf(bool dark) => _i?._red?.detect(dark) ?? kRed;
-
-  static Color orangeOf(bool dark) => _i?._orange?.detect(dark) ?? kOrange;
-
-  static Color yellowOf(bool dark) => _i?._yellow?.detect(dark) ?? kYellow;
-
-  static Color purpleOf(bool dark) => _i?._purple?.detect(dark) ?? kPurple;
-
-  static Color pinkOf(bool dark) => _i?._pink?.detect(dark) ?? kPink;
-
-  ColorTheme({
-    this.name,
-    ThemeMode? themeMode,
-    ThemeColor? green,
-    ThemeColor? grey,
-    ThemeColor? blue,
-    ThemeColor? red,
-    ThemeColor? orange,
-    ThemeColor? yellow,
-    ThemeColor? purple,
-    ThemeColor? pink,
-    // COLORS
-    ColorThemeConfig? appbar,
-    ColorThemeConfig? base,
-    ColorThemeConfig? background,
-    ColorThemeConfig? bottom,
-    ColorThemeConfig? card,
-    ColorThemeConfig? dialog,
-    ColorThemeConfig? divider,
-    ColorThemeConfig? highlight,
-    ColorThemeConfig? hint,
-    ColorThemeConfig? hover,
-    ColorThemeConfig? icon,
-    ColorThemeConfig? label,
-    ColorThemeConfig? placeholder,
-    ColorThemeConfig? scaffold,
-    ColorThemeConfig? shadow,
-    ColorThemeConfig? splash,
-    ColorThemeConfig? surface,
-    ColorThemeConfig? text,
-    Iterable<ColorThemeData> colors = const [],
-    Iterable<GradientThemeData> gradients = const [],
-  })  : _themeMode = themeMode,
-        _green = green,
-        _grey = grey,
-        _blue = blue,
-        _red = red,
-        _orange = orange,
-        _yellow = yellow,
-        _purple = purple,
-        _pink = pink {
-    // COLORS
-    if (appbar != null) _colors[_kAppbar] = appbar;
-    if (base != null) _colors[_kBase] = base;
-    if (background != null) _colors[_kBackground] = background;
-    if (bottom != null) _colors[_kBottom] = bottom;
-    if (card != null) _colors[_kCard] = card;
-    if (dialog != null) _colors[_kDialog] = dialog;
-    if (divider != null) _colors[_kDivider] = divider;
-    if (highlight != null) _colors[_kHighlight] = highlight;
-    if (hint != null) _colors[_kHint] = hint;
-    if (hover != null) _colors[_kHover] = hover;
-    if (icon != null) _colors[_kIcon] = icon;
-    if (label != null) _colors[_kLabel] = label;
-    if (placeholder != null) _colors[_kPlaceholder] = placeholder;
-    if (scaffold != null) _colors[_kScaffold] = scaffold;
-    if (shadow != null) _colors[_kShadow] = shadow;
-    if (splash != null) _colors[_kSplash] = splash;
-    if (surface != null) _colors[_kSurface] = surface;
-    if (text != null) _colors[_kText] = text;
-    if (colors.isNotEmpty) {
-      _customs.addEntries(colors.map((e) => MapEntry(e.name, e.config)));
-    }
-    if (gradients.isNotEmpty) {
-      _gradients.addEntries(gradients.map((e) {
-        return MapEntry(e.name, e.config);
-      }));
-    }
-  }
-
-  void apply() => _i = this;
-
-  void createInstance() => apply();
+  static ColorTheme get i => _i ??= ColorTheme();
 
   static ColorTheme? tryParse(Object? payload) {
     if (payload == null) return null;
@@ -149,7 +95,7 @@ class ColorTheme {
 
     final rawThemeMode =
         payload['themeMode'] ?? payload['theme_mode'] ?? payload['mode'];
-    final themeMode = rawThemeMode is Object ? rawThemeMode.themeMode : null;
+    final themeMode = rawThemeMode is Object ? rawThemeMode._tm : null;
 
     final green = ThemeColor.tryParse(payload['green']);
     final grey = ThemeColor.tryParse(payload['grey']);
@@ -225,6 +171,135 @@ class ColorTheme {
     );
   }
 
+  static Future<void> init({Future<Object?>? Function()? payload}) async {
+    if (payload == null) return;
+    _i = ColorTheme.tryParse(payload);
+    i.notifyListeners();
+  }
+
+  bool isDarkMode(BuildContext context) {
+    final mode = i._themeMode;
+    if (mode != null) {
+      if (mode == ThemeMode.system) {
+        return MediaQuery.platformBrightnessOf(context) == Brightness.dark;
+      } else {
+        if (mode == ThemeMode.light) {
+          return Theme.of(context).brightness == Brightness.dark;
+        } else {
+          return mode == ThemeMode.dark;
+        }
+      }
+    } else {
+      return Theme.of(context).brightness == Brightness.dark;
+    }
+  }
+
+  Color greenOf([bool? dark]) => _green?.detect(dark ?? isDark) ?? kGreen;
+
+  Color greyOf([bool? dark]) => _grey?.detect(dark ?? isDark) ?? kGrey;
+
+  Color blueOf([bool? dark]) => _blue?.detect(dark ?? isDark) ?? kBlue;
+
+  Color redOf([bool? dark]) => _red?.detect(dark ?? isDark) ?? kRed;
+
+  Color orangeOf([bool? dark]) => _orange?.detect(dark ?? isDark) ?? kOrange;
+
+  Color yellowOf([bool? dark]) => _yellow?.detect(dark ?? isDark) ?? kYellow;
+
+  Color purpleOf([bool? dark]) => _purple?.detect(dark ?? isDark) ?? kPurple;
+
+  Color pinkOf([bool? dark]) => _pink?.detect(dark ?? isDark) ?? kPink;
+
+  ThemeColors colorsOf(String name, [bool? dark]) {
+    return colorConfigOf(name).detect(dark ?? i.isDark);
+  }
+
+  ColorThemeConfig colorConfigOf(String name) {
+    return _colors[name] ?? ColorThemeConfig.none();
+  }
+
+  ThemeGradients gradientsOf(String name, [bool? dark]) {
+    return gradientConfigOf(name).detect(dark ?? i.isDark);
+  }
+
+  GradientThemeConfig gradientConfigOf(String name) {
+    return _gradients[name] ?? GradientThemeConfig.none();
+  }
+
+  void setThemeMode(ThemeMode? mode) {
+    _themeMode = mode;
+    notifyListeners();
+  }
+
+  ColorTheme({
+    ThemeMode? themeMode,
+    ThemeColor? green,
+    ThemeColor? grey,
+    ThemeColor? blue,
+    ThemeColor? red,
+    ThemeColor? orange,
+    ThemeColor? yellow,
+    ThemeColor? purple,
+    ThemeColor? pink,
+    ColorThemeConfig? appbar,
+    ColorThemeConfig? base,
+    ColorThemeConfig? background,
+    ColorThemeConfig? bottom,
+    ColorThemeConfig? card,
+    ColorThemeConfig? dialog,
+    ColorThemeConfig? divider,
+    ColorThemeConfig? highlight,
+    ColorThemeConfig? hint,
+    ColorThemeConfig? hover,
+    ColorThemeConfig? icon,
+    ColorThemeConfig? label,
+    ColorThemeConfig? placeholder,
+    ColorThemeConfig? scaffold,
+    ColorThemeConfig? shadow,
+    ColorThemeConfig? splash,
+    ColorThemeConfig? surface,
+    ColorThemeConfig? text,
+    Iterable<ColorThemeData> colors = const [],
+    Iterable<GradientThemeData> gradients = const [],
+  })  : _themeMode = themeMode,
+        _green = green,
+        _grey = grey,
+        _blue = blue,
+        _red = red,
+        _orange = orange,
+        _yellow = yellow,
+        _purple = purple,
+        _pink = pink {
+    if (appbar != null) _colors[_kAppbar] = appbar;
+    if (base != null) _colors[_kBase] = base;
+    if (background != null) _colors[_kBackground] = background;
+    if (bottom != null) _colors[_kBottom] = bottom;
+    if (card != null) _colors[_kCard] = card;
+    if (dialog != null) _colors[_kDialog] = dialog;
+    if (divider != null) _colors[_kDivider] = divider;
+    if (highlight != null) _colors[_kHighlight] = highlight;
+    if (hint != null) _colors[_kHint] = hint;
+    if (hover != null) _colors[_kHover] = hover;
+    if (icon != null) _colors[_kIcon] = icon;
+    if (label != null) _colors[_kLabel] = label;
+    if (placeholder != null) _colors[_kPlaceholder] = placeholder;
+    if (scaffold != null) _colors[_kScaffold] = scaffold;
+    if (shadow != null) _colors[_kShadow] = shadow;
+    if (splash != null) _colors[_kSplash] = splash;
+    if (surface != null) _colors[_kSurface] = surface;
+    if (text != null) _colors[_kText] = text;
+    if (colors.isNotEmpty) {
+      _customs.addEntries(colors.map((e) => MapEntry(e.name, e.config)));
+    }
+    if (gradients.isNotEmpty) {
+      _gradients.addEntries(gradients.map((e) {
+        return MapEntry(e.name, e.config);
+      }));
+    }
+  }
+
+  void apply() => _i = this;
+
   Map<String, dynamic>? toMap() {
     final colors = _customs.entries
         .map((e) {
@@ -269,7 +344,7 @@ class ColorTheme {
 }
 
 extension on Object? {
-  ThemeMode? get themeMode {
+  ThemeMode? get _tm {
     final x = ThemeMode.values.where((e) {
       final s = toString().toLowerCase();
       if (e.toString().toLowerCase() == s) return true;

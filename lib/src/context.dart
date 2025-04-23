@@ -1,7 +1,7 @@
 part of "theme.dart";
 
 extension ColorThemeHelper on BuildContext {
-  bool get isDarkMode => ColorTheme.isDarkMode(this);
+  bool get isDarkMode => ColorTheme.i.isDarkMode(this);
 
   ThemeData get theme => Theme.of(this);
 

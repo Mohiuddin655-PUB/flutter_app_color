@@ -1,4 +1,5 @@
 import 'package:app_color/app_color.dart';
+import 'package:app_color/extension.dart';
 import 'package:flutter/material.dart';
 
 mixin ColorMixin<T extends StatefulWidget> on State<T> {
@@ -10,11 +11,19 @@ mixin ColorMixin<T extends StatefulWidget> on State<T> {
     });
   }
 
-  bool get isDarkMode => ColorTheme.isDarkMode(context);
-
-  ThemeData get theme => Theme.of(context);
+  @override
+  void didUpdateWidget(covariant T oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (isDarkMode != ColorTheme.i.isDarkMode(context)) {
+      color = ColorData.from(context);
+    }
+  }
 
   ColorData color = ColorData.light;
+
+  bool get isDarkMode => color.isDarkMode;
+
+  ThemeData get theme => Theme.of(context);
 
   Color get green => color.green;
 

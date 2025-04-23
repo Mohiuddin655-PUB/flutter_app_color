@@ -1,4 +1,4 @@
-import 'package:app_color/color.dart';
+import 'package:app_color/extension.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -10,97 +10,60 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final material = Color(0xFF4CAF50);
+    final color = Colors.green;
     return MaterialApp(
       home: Scaffold(
-        backgroundColor: Colors.white,
-        body: Column(
+        backgroundColor: material,
+        body: Row(
           children: [
             Expanded(
-              child: Container(
-                color: Colors.white,
-                width: double.infinity,
-                child: Center(
-                  child: SizedBox(
-                    width: 200,
-                    height: 200,
-                    child: Container(
-                      color: Colors.white.dx(10),
-                      alignment: Alignment.center,
-                      child: const Text("DARK 10%"),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            Expanded(
-              child: Container(
-                color: Colors.black,
-                width: double.infinity,
-                child: Center(
-                  child: SizedBox(
-                    width: 200,
-                    height: 200,
-                    child: Container(
-                      color: Colors.black.lx(10),
-                      alignment: Alignment.center,
-                      child: const Text(
-                        "LIGHT 10%",
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            Expanded(
-              child: Row(
+              child: Column(
                 children: [
-                  Expanded(
+                  Colors.white,
+                  material.shade50,
+                  material.shade100,
+                  material.shade200,
+                  material.shade300,
+                  material.shade400,
+                  material.shade500,
+                  material.shade600,
+                  material.shade700,
+                  material.shade800,
+                  material.shade900,
+                  Colors.black,
+                ].map((e) {
+                  return Expanded(
                     child: Container(
-                      color: Colors.green.shade400,
+                      color: e,
                       width: double.infinity,
-                      child: Center(
-                        child: AspectRatio(
-                          aspectRatio: 1,
-                          child: Container(
-                            color: Colors.green.shade400.themeA(10),
-                            margin: const EdgeInsets.all(32),
-                            alignment: Alignment.center,
-                            child: Text(
-                              "AUTO 10%\nDETECT ON COLOR \nBRIGHTNESS",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: Colors.green.shade400.themeB(75),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
                     ),
-                  ),
-                  Expanded(
-                    child: Container(
-                      color: Colors.green.shade600,
-                      width: double.infinity,
-                      child: Center(
-                        child: AspectRatio(
-                          aspectRatio: 1,
+                  );
+                }).toList(),
+              ),
+            ),
+            Expanded(
+              child: Column(
+                children: [
+                  ...List.generate(100, (i) => color.tint((i / 100)))
+                      .map((e) {
+                        return Expanded(
                           child: Container(
-                            color: Colors.green.shade600.themeA(10),
-                            margin: const EdgeInsets.all(32),
-                            alignment: Alignment.center,
-                            child: Text(
-                              "AUTO 10%\nDETECT ON COLOR \nBRIGHTNESS",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: Colors.green.shade600.themeB(75),
-                              ),
-                            ),
+                            color: e,
+                            width: double.infinity,
                           ),
-                        ),
+                        );
+                      })
+                      .toList()
+                      .reversed,
+                  ...List.generate(100, (i) => color.shade((i / 100))).map((e) {
+                    return Expanded(
+                      child: Container(
+                        color: e,
+                        width: double.infinity,
                       ),
-                    ),
-                  ),
+                    );
+                  }),
                 ],
               ),
             ),

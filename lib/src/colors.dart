@@ -1,0 +1,20 @@
+part of 'theme.dart';
+
+ThemeColors kColors = ThemeColors.of(_kBase);
+ThemeColors kAppbarColors = ThemeColors.of(_kAppbar);
+ThemeColors kBackgroundColors = ThemeColors.of(_kBackground);
+ThemeColors kBottomColors = ThemeColors.of(_kBottom);
+ThemeColors kCardColors = ThemeColors.of(_kCard);
+ThemeColors kDialogColors = ThemeColors.of(_kDialog);
+ThemeColors kDividerColors = ThemeColors.of(_kDivider);
+ThemeColors kHighlightColors = ThemeColors.of(_kHighlight);
+ThemeColors kHintColors = ThemeColors.of(_kHint);
+ThemeColors kHoverColors = ThemeColors.of(_kHover);
+ThemeColors kIconColors = ThemeColors.of(_kIcon);
+ThemeColors kLabelColors = ThemeColors.of(_kLabel);
+ThemeColors kPlaceholderColors = ThemeColors.of(_kPlaceholder);
+ThemeColors kScaffoldColors = ThemeColors.of(_kScaffold);
+ThemeColors kShadowColors = ThemeColors.of(_kShadow);
+ThemeColors kSplashColors = ThemeColors.of(_kSplash);
+ThemeColors kSurfaceColors = ThemeColors.of(_kSurface);
+ThemeColors kTextColors = ThemeColors.of(_kText);

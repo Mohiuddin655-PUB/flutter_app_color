@@ -1,3 +1,8 @@
+## 1.1.1
+
+* ColorTheme default color supports
+* Shades and tints supports
+
 ## 1.1.0
 
 * Remove all specific gradients

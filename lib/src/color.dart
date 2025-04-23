@@ -2,12 +2,10 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-import 'helper.dart';
-
-class AppColor extends MaterialColor {
+class AppColor extends Color {
   final int primary;
 
-  const AppColor(this.primary) : super(primary, const {});
+  const AppColor(this.primary) : super(primary);
 
   static final _white = {"x": 95.047, "y": 100, "z": 108.883};
 
@@ -129,45 +127,5 @@ class AppColor extends MaterialColor {
 
   factory AppColor.fromXYZ(double x, double y, double z, [double opacity = 1]) {
     return AppColor(toXYZ(x, y, z, opacity));
-  }
-
-  /// SHADE COLORS
-  @override
-  Color get shade50 => lx(05);
-
-  @override
-  Color get shade100 => lx(10);
-
-  @override
-  Color get shade200 => lx(20);
-
-  @override
-  Color get shade300 => lx(30);
-
-  @override
-  Color get shade400 => lx(40);
-
-  @override
-  Color get shade500 => dx(50);
-
-  @override
-  Color get shade600 => dx(60);
-
-  @override
-  Color get shade700 => dx(70);
-
-  @override
-  Color get shade800 => dx(80);
-
-  @override
-  Color get shade900 => dx(90);
-
-  @override
-  Color operator [](int key) {
-    if (key < 0) {
-      return dx(min(max(key < -100 ? key / 10 : key * -1.0, 0), 100));
-    } else {
-      return lx(min(max(key > 100 ? key / 10 : key * 1.0, 0), 100));
-    }
   }
 }
