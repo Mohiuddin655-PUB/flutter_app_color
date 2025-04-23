@@ -5,20 +5,22 @@ final _kDefault = ColorThemeConfig(
     light: Colors.white,
     dark: Colors.black,
     mid: Colors.grey.shade400,
-    optional: Colors.transparent,
     error: Color(0xFFFF7769),
   ),
   dark: ThemeColors(
     light: Colors.black,
     dark: Colors.white,
     mid: Colors.grey.shade600,
-    optional: Colors.transparent,
     error: Color(0xFF85221C),
   ),
 );
 
 final kGreen = ThemeColor(
   light: const Color(0xFF2ECA7F),
+);
+final kGrey = ThemeColor(
+  light: const Color(0xFF999999),
+  dark: const Color(0xFF808080),
 );
 final kBlue = ThemeColor(
   light: const Color(0xFF19A4FA),

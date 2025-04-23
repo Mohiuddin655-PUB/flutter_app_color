@@ -1,4 +1,9 @@
+## 1.1.0
+
+* Remove all specific gradients
+
 ## 1.0.9
+
 ## 1.0.8
 
 * Add ColorMixin to use easy by state

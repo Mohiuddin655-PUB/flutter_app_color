@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:math';
 
+import 'package:app_color/color.dart';
 import 'package:flutter/material.dart';
 
 import 'theme_color.dart';
@@ -17,6 +18,7 @@ class ColorTheme {
   final String? name;
   final ThemeMode? _themeMode;
   final ThemeColor? _green;
+  final ThemeColor? _grey;
   final ThemeColor? _blue;
   final ThemeColor? _red;
   final ThemeColor? _orange;
@@ -26,7 +28,6 @@ class ColorTheme {
   final _Colors _colors = {_kBase: _kDefault};
   final _Colors _customs = {};
   final _Gradients _gradients = {};
-  final _Gradients _customGradients = {};
 
   static ColorTheme? _i;
 
@@ -53,6 +54,8 @@ class ColorTheme {
 
   static Color greenOf(bool dark) => _i?._green?.detect(dark) ?? kGreen;
 
+  static Color greyOf(bool dark) => _i?._grey?.detect(dark) ?? kGrey;
+
   static Color blueOf(bool dark) => _i?._blue?.detect(dark) ?? kBlue;
 
   static Color redOf(bool dark) => _i?._red?.detect(dark) ?? kRed;
@@ -69,6 +72,7 @@ class ColorTheme {
     this.name,
     ThemeMode? themeMode,
     ThemeColor? green,
+    ThemeColor? grey,
     ThemeColor? blue,
     ThemeColor? red,
     ThemeColor? orange,
@@ -95,28 +99,10 @@ class ColorTheme {
     ColorThemeConfig? surface,
     ColorThemeConfig? text,
     Iterable<ColorThemeData> colors = const [],
-    // GRADIENTS
-    GradientThemeConfig? appbarGradient,
-    GradientThemeConfig? baseGradient,
-    GradientThemeConfig? backgroundGradient,
-    GradientThemeConfig? bottomGradient,
-    GradientThemeConfig? cardGradient,
-    GradientThemeConfig? dialogGradient,
-    GradientThemeConfig? dividerGradient,
-    GradientThemeConfig? highlightGradient,
-    GradientThemeConfig? hintGradient,
-    GradientThemeConfig? hoverGradient,
-    GradientThemeConfig? iconGradient,
-    GradientThemeConfig? labelGradient,
-    GradientThemeConfig? placeholderGradient,
-    GradientThemeConfig? scaffoldGradient,
-    GradientThemeConfig? shadowGradient,
-    GradientThemeConfig? splashGradient,
-    GradientThemeConfig? surfaceGradient,
-    GradientThemeConfig? textGradient,
     Iterable<GradientThemeData> gradients = const [],
   })  : _themeMode = themeMode,
         _green = green,
+        _grey = grey,
         _blue = blue,
         _red = red,
         _orange = orange,
@@ -145,31 +131,8 @@ class ColorTheme {
     if (colors.isNotEmpty) {
       _customs.addEntries(colors.map((e) => MapEntry(e.name, e.config)));
     }
-    // GRADIENTS
-    if (appbarGradient != null) _gradients[_kAppbar] = appbarGradient;
-    if (baseGradient != null) _gradients[_kBase] = baseGradient;
-    if (backgroundGradient != null) {
-      _gradients[_kBackground] = backgroundGradient;
-    }
-    if (bottomGradient != null) _gradients[_kBottom] = bottomGradient;
-    if (cardGradient != null) _gradients[_kCard] = cardGradient;
-    if (dialogGradient != null) _gradients[_kDialog] = dialogGradient;
-    if (dividerGradient != null) _gradients[_kDivider] = dividerGradient;
-    if (highlightGradient != null) _gradients[_kHighlight] = highlightGradient;
-    if (hintGradient != null) _gradients[_kHint] = hintGradient;
-    if (hoverGradient != null) _gradients[_kHover] = hoverGradient;
-    if (iconGradient != null) _gradients[_kIcon] = iconGradient;
-    if (labelGradient != null) _gradients[_kLabel] = labelGradient;
-    if (placeholderGradient != null) {
-      _gradients[_kPlaceholder] = placeholderGradient;
-    }
-    if (scaffoldGradient != null) _gradients[_kScaffold] = scaffoldGradient;
-    if (shadowGradient != null) _gradients[_kShadow] = shadowGradient;
-    if (splashGradient != null) _gradients[_kSplash] = splashGradient;
-    if (surfaceGradient != null) _gradients[_kSurface] = surfaceGradient;
-    if (textGradient != null) _gradients[_kText] = textGradient;
     if (gradients.isNotEmpty) {
-      _customGradients.addEntries(gradients.map((e) {
+      _gradients.addEntries(gradients.map((e) {
         return MapEntry(e.name, e.config);
       }));
     }
@@ -177,7 +140,6 @@ class ColorTheme {
 
   void apply() => _i = this;
 
-  @Deprecated("Should be use 'apply'")
   void createInstance() => apply();
 
   static ColorTheme? tryParse(Object? payload) {
@@ -190,6 +152,7 @@ class ColorTheme {
     final themeMode = rawThemeMode is Object ? rawThemeMode.themeMode : null;
 
     final green = ThemeColor.tryParse(payload['green']);
+    final grey = ThemeColor.tryParse(payload['grey']);
     final blue = ThemeColor.tryParse(payload['blue']);
     final red = ThemeColor.tryParse(payload['red']);
     final orange = ThemeColor.tryParse(payload['orange']);
@@ -222,37 +185,6 @@ class ColorTheme {
             .toList()
         : null;
 
-    GradientThemeConfig? gradientConfig(Map payload, String key) {
-      if (key.isEmpty) return null;
-      Object? data = payload[key];
-      data ??= payload["${key}Gradient"];
-      data ??= payload["${key}_gradient"];
-      data ??= payload["gradient_$key"];
-      data ??= payload[
-          "gradient${key[0].toUpperCase()}${key.length > 1 ? key.substring(1) : ''}"];
-      data ??= payload["${key}G"];
-      data ??= payload["${key}_g"];
-      return GradientThemeConfig.tryParse(payload["${key}Gradient"]);
-    }
-
-    final baseGradient = gradientConfig(payload, _kBase);
-    final appbarGradient = gradientConfig(payload, _kAppbar);
-    final backgroundGradient = gradientConfig(payload, _kBackground);
-    final bottomGradient = gradientConfig(payload, _kBottom);
-    final cardGradient = gradientConfig(payload, _kCard);
-    final dialogGradient = gradientConfig(payload, _kDialog);
-    final dividerGradient = gradientConfig(payload, _kDivider);
-    final highlightGradient = gradientConfig(payload, _kHighlight);
-    final hintGradient = gradientConfig(payload, _kHint);
-    final hoverGradient = gradientConfig(payload, _kHover);
-    final iconGradient = gradientConfig(payload, _kIcon);
-    final labelGradient = gradientConfig(payload, _kLabel);
-    final placeholderGradient = gradientConfig(payload, _kPlaceholder);
-    final scaffoldGradient = gradientConfig(payload, _kScaffold);
-    final shadowGradient = gradientConfig(payload, _kShadow);
-    final surfaceGradient = gradientConfig(payload, _kSurface);
-    final textGradient = gradientConfig(payload, _kText);
-
     final rawGradients = payload['gradients'];
     final gradients = rawGradients is List
         ? rawGradients
@@ -264,6 +196,7 @@ class ColorTheme {
     return ColorTheme(
       themeMode: themeMode,
       green: green,
+      grey: grey,
       blue: blue,
       red: red,
       orange: orange,
@@ -288,23 +221,6 @@ class ColorTheme {
       surface: surface,
       text: text,
       colors: colors ?? [],
-      appbarGradient: appbarGradient,
-      baseGradient: baseGradient,
-      backgroundGradient: backgroundGradient,
-      bottomGradient: bottomGradient,
-      cardGradient: cardGradient,
-      dialogGradient: dialogGradient,
-      dividerGradient: dividerGradient,
-      highlightGradient: highlightGradient,
-      hintGradient: hintGradient,
-      hoverGradient: hoverGradient,
-      iconGradient: iconGradient,
-      labelGradient: labelGradient,
-      placeholderGradient: placeholderGradient,
-      scaffoldGradient: scaffoldGradient,
-      shadowGradient: shadowGradient,
-      surfaceGradient: surfaceGradient,
-      textGradient: textGradient,
       gradients: gradients ?? [],
     );
   }
@@ -317,7 +233,7 @@ class ColorTheme {
         })
         .where((e) => e != null)
         .toList();
-    final gradients = _customGradients.entries
+    final gradients = _gradients.entries
         .map((e) {
           if (e.value == null) return null;
           return GradientThemeData(name: e.key, config: e.value!).toMap();
@@ -327,6 +243,7 @@ class ColorTheme {
     final x = {
       "themeMode": _themeMode?.toString(),
       "green": _green?.toJson(),
+      "grey": _grey?.toJson(),
       "blue": _blue?.toJson(),
       "red": _red?.toJson(),
       "orange": _orange?.toJson(),
@@ -337,9 +254,6 @@ class ColorTheme {
         return MapEntry(key, value?.toMap());
       }),
       if (colors.isNotEmpty) "colors": colors,
-      ..._gradients.map((key, value) {
-        return MapEntry("${key}Gradient", value?.toMap());
-      }),
       if (gradients.isNotEmpty) "gradients": gradients,
     };
     final y = x.entries.where((e) {

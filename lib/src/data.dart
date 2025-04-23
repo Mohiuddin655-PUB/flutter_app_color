@@ -6,6 +6,7 @@ final class ColorData {
 
   // Theme Colors
   final Color green;
+  final Color grey;
   final Color blue;
   final Color red;
   final Color orange;
@@ -14,95 +15,130 @@ final class ColorData {
   final Color pink;
 
   // Color Theme Configs
-  final ThemeColors appbar;
-  final ThemeColors base;
-  final ThemeColors background;
-  final ThemeColors bottom;
-  final ThemeColors card;
-  final ThemeColors dialog;
-  final ThemeColors divider;
-  final ThemeColors highlight;
-  final ThemeColors hint;
-  final ThemeColors hover;
-  final ThemeColors icon;
-  final ThemeColors label;
-  final ThemeColors placeholder;
-  final ThemeColors scaffold;
-  final ThemeColors shadow;
-  final ThemeColors splash;
-  final ThemeColors surface;
-  final ThemeColors text;
+  final ThemeColors? _appbar;
+
+  ThemeColors get appbar => _appbar ?? base;
+
+  final ThemeColors? _base;
+
+  ThemeColors get base => _base ?? ThemeColors();
+
+  final ThemeColors? _background;
+
+  ThemeColors get background => _background ?? base;
+
+  final ThemeColors? _bottom;
+
+  ThemeColors get bottom => _bottom ?? base;
+
+  final ThemeColors? _card;
+
+  ThemeColors get card => _card ?? base;
+
+  final ThemeColors? _dialog;
+
+  ThemeColors get dialog => _dialog ?? base;
+
+  final ThemeColors? _divider;
+
+  ThemeColors get divider => _divider ?? base;
+
+  final ThemeColors? _highlight;
+
+  ThemeColors get highlight => _highlight ?? base;
+
+  final ThemeColors? _hint;
+
+  ThemeColors get hint => _hint ?? base;
+
+  final ThemeColors? _hover;
+
+  ThemeColors get hover => _hover ?? base;
+
+  final ThemeColors? _icon;
+
+  ThemeColors get icon => _icon ?? base;
+
+  final ThemeColors? _label;
+
+  ThemeColors get label => _label ?? base;
+
+  final ThemeColors? _placeholder;
+
+  ThemeColors get placeholder => _placeholder ?? base;
+
+  final ThemeColors? _scaffold;
+
+  ThemeColors get scaffold => _scaffold ?? base;
+
+  final ThemeColors? _shadow;
+
+  ThemeColors get shadow => _shadow ?? base;
+
+  final ThemeColors? _splash;
+
+  ThemeColors get splash => _splash ?? base;
+
+  final ThemeColors? _surface;
+
+  ThemeColors get surface => _surface ?? base;
+
+  final ThemeColors? _text;
+
+  ThemeColors get text => _text ?? base;
+
   final Map<String, ThemeColors> colors;
 
-  // Gradient Theme Configs
-  final ThemeGradients appbarGradient;
-  final ThemeGradients baseGradient;
-  final ThemeGradients backgroundGradient;
-  final ThemeGradients bottomGradient;
-  final ThemeGradients cardGradient;
-  final ThemeGradients dialogGradient;
-  final ThemeGradients dividerGradient;
-  final ThemeGradients highlightGradient;
-  final ThemeGradients hintGradient;
-  final ThemeGradients hoverGradient;
-  final ThemeGradients iconGradient;
-  final ThemeGradients labelGradient;
-  final ThemeGradients placeholderGradient;
-  final ThemeGradients scaffoldGradient;
-  final ThemeGradients shadowGradient;
-  final ThemeGradients splashGradient;
-  final ThemeGradients surfaceGradient;
-  final ThemeGradients textGradient;
   final Map<String, ThemeGradients> gradients;
 
   const ColorData._({
     required this.isDarkMode,
     required this.green,
+    required this.grey,
     required this.blue,
     required this.red,
     required this.orange,
     required this.yellow,
     required this.purple,
     required this.pink,
-    required this.appbar,
-    required this.base,
-    required this.background,
-    required this.bottom,
-    required this.card,
-    required this.dialog,
-    required this.divider,
-    required this.highlight,
-    required this.hint,
-    required this.hover,
-    required this.icon,
-    required this.label,
-    required this.placeholder,
-    required this.scaffold,
-    required this.shadow,
-    required this.splash,
-    required this.surface,
-    required this.text,
+    required ThemeColors appbar,
+    required ThemeColors base,
+    required ThemeColors background,
+    required ThemeColors bottom,
+    required ThemeColors card,
+    required ThemeColors dialog,
+    required ThemeColors divider,
+    required ThemeColors highlight,
+    required ThemeColors hint,
+    required ThemeColors hover,
+    required ThemeColors icon,
+    required ThemeColors label,
+    required ThemeColors placeholder,
+    required ThemeColors scaffold,
+    required ThemeColors shadow,
+    required ThemeColors splash,
+    required ThemeColors surface,
+    required ThemeColors text,
     required this.colors,
-    required this.appbarGradient,
-    required this.baseGradient,
-    required this.backgroundGradient,
-    required this.bottomGradient,
-    required this.cardGradient,
-    required this.dialogGradient,
-    required this.dividerGradient,
-    required this.highlightGradient,
-    required this.hintGradient,
-    required this.hoverGradient,
-    required this.iconGradient,
-    required this.labelGradient,
-    required this.placeholderGradient,
-    required this.scaffoldGradient,
-    required this.shadowGradient,
-    required this.splashGradient,
-    required this.surfaceGradient,
-    required this.textGradient,
     required this.gradients,
-  });
+  })  : _appbar = appbar,
+        _base = base,
+        _background = background,
+        _bottom = bottom,
+        _card = card,
+        _dialog = dialog,
+        _divider = divider,
+        _highlight = highlight,
+        _hint = hint,
+        _hover = hover,
+        _icon = icon,
+        _label = label,
+        _placeholder = placeholder,
+        _scaffold = scaffold,
+        _shadow = shadow,
+        _splash = splash,
+        _surface = surface,
+        _text = text;
 
   factory ColorData.of(bool dark, [ThemeData? theme]) {
     theme ??= ThemeData();
@@ -117,7 +153,7 @@ final class ColorData {
     Map<String, ThemeColors> colors =
         x == null || x.isEmpty ? {} : Map.fromEntries(x);
 
-    final y = ColorTheme._i?._customGradients.entries.map((e) {
+    final y = ColorTheme._i?._gradients.entries.map((e) {
       if (e.value == null) return null;
       return MapEntry(e.key, e.value!.detect(dark));
     }).whereType<MapEntry<String, ThemeGradients>>();
@@ -128,6 +164,7 @@ final class ColorData {
     return ColorData._(
       isDarkMode: dark,
       green: ColorTheme.greenOf(dark),
+      grey: ColorTheme.greyOf(dark),
       blue: ColorTheme.blueOf(dark),
       red: ColorTheme.redOf(dark),
       orange: ColorTheme.orangeOf(dark),
@@ -181,24 +218,6 @@ final class ColorData {
         tertiary: theme.textTheme.bodyLarge?.color,
       ),
       colors: colors,
-      appbarGradient: ThemeGradients.of(_kAppbar, dark),
-      baseGradient: ThemeGradients.of(_kBase, dark),
-      backgroundGradient: ThemeGradients.of(_kBackground, dark),
-      bottomGradient: ThemeGradients.of(_kBottom, dark),
-      cardGradient: ThemeGradients.of(_kCard, dark),
-      dialogGradient: ThemeGradients.of(_kDialog, dark),
-      dividerGradient: ThemeGradients.of(_kDivider, dark),
-      highlightGradient: ThemeGradients.of(_kHighlight, dark),
-      hintGradient: ThemeGradients.of(_kHint, dark),
-      hoverGradient: ThemeGradients.of(_kHover, dark),
-      iconGradient: ThemeGradients.of(_kIcon, dark),
-      labelGradient: ThemeGradients.of(_kLabel, dark),
-      placeholderGradient: ThemeGradients.of(_kPlaceholder, dark),
-      scaffoldGradient: ThemeGradients.of(_kScaffold, dark),
-      shadowGradient: ThemeGradients.of(_kShadow, dark),
-      splashGradient: ThemeGradients.of(_kSplash, dark),
-      surfaceGradient: ThemeGradients.of(_kSurface, dark),
-      textGradient: ThemeGradients.of(_kText, dark),
       gradients: gradients,
     );
   }

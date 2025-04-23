@@ -15,7 +15,6 @@ abstract class _Theme<T extends Object?> {
   final T? holo;
   final T? soft;
   final T? deep;
-  final T? optional;
 
   const _Theme({
     this.primary,
@@ -32,7 +31,6 @@ abstract class _Theme<T extends Object?> {
     this.holo,
     this.soft,
     this.deep,
-    this.optional,
   });
 
   _Theme<T> copy({
@@ -50,7 +48,6 @@ abstract class _Theme<T extends Object?> {
     final T? holo,
     final T? soft,
     final T? deep,
-    final T? optional,
   });
 
   _Theme<T> defaults({
@@ -68,7 +65,6 @@ abstract class _Theme<T extends Object?> {
     final T? holo,
     final T? soft,
     final T? deep,
-    final T? optional,
   });
 
   Object? _stringify(T? value);
@@ -89,7 +85,6 @@ abstract class _Theme<T extends Object?> {
       "holo": _stringify(holo),
       "soft": _stringify(soft),
       "deep": _stringify(deep),
-      "optional": _stringify(optional),
     };
     final y = x.entries.where((e) {
       if (e.value == null) return false;
@@ -116,7 +111,6 @@ class ThemeColors extends _Theme<Color> {
     super.holo,
     super.soft,
     super.deep,
-    super.optional,
   });
 
   factory ThemeColors.of(String name, bool isDarkMode) {
@@ -134,7 +128,6 @@ class ThemeColors extends _Theme<Color> {
       light: x.light,
       dark: x.dark,
       mid: x.mid,
-      optional: x.optional,
       error: x.error,
     );
   }
@@ -156,7 +149,6 @@ class ThemeColors extends _Theme<Color> {
       final holo = source['holo'];
       final soft = source['soft'];
       final deep = source['deep'];
-      final optional = source['optional'];
       return ThemeColors(
         primary: primary is Object ? primary.color : null,
         secondary: secondary is Object ? secondary.color : null,
@@ -172,7 +164,6 @@ class ThemeColors extends _Theme<Color> {
         holo: holo is Object ? holo.color : null,
         soft: soft is Object ? soft.color : null,
         deep: deep is Object ? deep.color : null,
-        optional: optional is Object ? optional.color : null,
       );
     } catch (_) {
       return ThemeColors();
@@ -195,7 +186,6 @@ class ThemeColors extends _Theme<Color> {
     Color? holo,
     Color? soft,
     Color? deep,
-    Color? optional,
   }) {
     return ThemeColors(
       primary: primary ?? this.primary,
@@ -212,7 +202,6 @@ class ThemeColors extends _Theme<Color> {
       holo: holo ?? this.holo,
       soft: soft ?? this.soft,
       deep: deep ?? this.deep,
-      optional: optional ?? this.optional,
     );
   }
 
@@ -232,7 +221,6 @@ class ThemeColors extends _Theme<Color> {
     Color? holo,
     Color? soft,
     Color? deep,
-    Color? optional,
   }) {
     return ThemeColors(
       primary: this.primary ?? primary,
@@ -249,7 +237,6 @@ class ThemeColors extends _Theme<Color> {
       holo: this.holo ?? holo,
       soft: this.soft ?? soft,
       deep: this.deep ?? deep,
-      optional: this.optional ?? optional,
     );
   }
 
@@ -265,7 +252,7 @@ class ThemeColors extends _Theme<Color> {
 
   @override
   String toString() {
-    return '$ThemeColors(primary: $primary, secondary: $secondary, tertiary: $tertiary, error: $error, warning: $warning, disable: $disable, light: $light, lightAsFixed: $lightAsFixed, dark: $dark, darkAsFixed: $darkAsFixed, mid: $mid, holo: $holo, soft: $soft, deep: $deep, optional: $optional)';
+    return '$ThemeColors(primary: $primary, secondary: $secondary, tertiary: $tertiary, error: $error, warning: $warning, disable: $disable, light: $light, lightAsFixed: $lightAsFixed, dark: $dark, darkAsFixed: $darkAsFixed, mid: $mid, holo: $holo, soft: $soft, deep: $deep)';
   }
 }
 
@@ -285,7 +272,6 @@ class ThemeGradients extends _Theme<Gradient> {
     super.holo,
     super.soft,
     super.deep,
-    super.optional,
   });
 
   factory ThemeGradients.of(String name, bool isDarkMode) {
@@ -312,7 +298,6 @@ class ThemeGradients extends _Theme<Gradient> {
       final holo = source['holo'];
       final soft = source['soft'];
       final deep = source['deep'];
-      final optional = source['optional'];
       return ThemeGradients(
         primary: primary is Map ? primary.gradient : null,
         secondary: secondary is Map ? secondary.gradient : null,
@@ -328,7 +313,6 @@ class ThemeGradients extends _Theme<Gradient> {
         holo: holo is Map ? holo.gradient : null,
         soft: soft is Map ? soft.gradient : null,
         deep: deep is Map ? deep.gradient : null,
-        optional: optional is Map ? optional.gradient : null,
       );
     } catch (_) {
       return ThemeGradients();
@@ -351,7 +335,6 @@ class ThemeGradients extends _Theme<Gradient> {
     Gradient? holo,
     Gradient? soft,
     Gradient? deep,
-    Gradient? optional,
   }) {
     return ThemeGradients(
       primary: primary ?? this.primary,
@@ -368,7 +351,6 @@ class ThemeGradients extends _Theme<Gradient> {
       holo: holo ?? this.holo,
       soft: soft ?? this.soft,
       deep: deep ?? this.deep,
-      optional: optional ?? this.optional,
     );
   }
 
@@ -388,7 +370,6 @@ class ThemeGradients extends _Theme<Gradient> {
     Gradient? holo,
     Gradient? soft,
     Gradient? deep,
-    Gradient? optional,
   }) {
     return ThemeGradients(
       primary: this.primary ?? primary,
@@ -405,7 +386,6 @@ class ThemeGradients extends _Theme<Gradient> {
       holo: this.holo ?? holo,
       soft: this.soft ?? soft,
       deep: this.deep ?? deep,
-      optional: this.optional ?? optional,
     );
   }
 
@@ -482,7 +462,7 @@ class ThemeGradients extends _Theme<Gradient> {
 
   @override
   String toString() {
-    return '$ThemeGradients(primary: $primary, secondary: $secondary, tertiary: $tertiary, error: $error, warning: $warning, disable: $disable, light: $light, lightAsFixed: $lightAsFixed, dark: $dark, darkAsFixed: $darkAsFixed, mid: $mid, holo: $holo, soft: $soft, deep: $deep, optional: $optional)';
+    return '$ThemeGradients(primary: $primary, secondary: $secondary, tertiary: $tertiary, error: $error, warning: $warning, disable: $disable, light: $light, lightAsFixed: $lightAsFixed, dark: $dark, darkAsFixed: $darkAsFixed, mid: $mid, holo: $holo, soft: $soft, deep: $deep)';
   }
 }
 

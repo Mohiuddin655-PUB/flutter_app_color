@@ -1,6 +1,5 @@
+import 'package:app_color/app_color.dart';
 import 'package:flutter/material.dart';
-
-import 'theme.dart';
 
 mixin ColorMixin<T extends StatefulWidget> on State<T> {
   @override
@@ -11,13 +10,15 @@ mixin ColorMixin<T extends StatefulWidget> on State<T> {
     });
   }
 
-  // THEME
+  bool get isDarkMode => ColorTheme.isDarkMode(context);
+
+  ThemeData get theme => Theme.of(context);
 
   ColorData color = ColorData.light;
 
-  bool get isDarkMode => ColorTheme.isDarkMode(context);
-
   Color get green => color.green;
+
+  Color get grey => color.grey;
 
   Color get blue => color.blue;
 
@@ -31,45 +32,40 @@ mixin ColorMixin<T extends StatefulWidget> on State<T> {
 
   Color get pink => color.pink;
 
-  ThemeColors colorOf(String name) => color.colorOf(name);
-
-  ThemeGradients gradientOf(String name) => color.gradientOf(name);
-
-  // BASE COLORS
-
   ThemeColors get base => color.base;
 
-  Color get primary => base.primary ?? Colors.transparent;
+  Color get primary => base.primary ?? theme.primaryColor;
 
-  Color get secondary => base.secondary ?? Colors.transparent;
+  Color get secondary => base.secondary ?? theme.colorScheme.secondary;
 
-  Color get tertiary => base.tertiary ?? Colors.transparent;
+  Color get tertiary => base.tertiary ?? theme.colorScheme.tertiary;
 
-  Color? get light => base.light;
+  Color get light => base.light ?? (isDarkMode ? Colors.black : Colors.white);
 
-  Color? get lightAsFixed => base.lightAsFixed;
+  Color get lightAsFixed => base.lightAsFixed ?? Colors.white;
 
-  Color? get dark => base.dark;
+  Color get dark => base.dark ?? (isDarkMode ? Colors.white : Colors.black);
 
-  Color? get darkAsFixed => base.darkAsFixed;
+  Color get darkAsFixed => base.darkAsFixed ?? Colors.black;
 
-  Color? get mid => base.mid;
+  Color get mid => base.mid ?? grey;
 
-  Color? get holo => base.holo;
+  Color get holo => base.holo ?? (isDarkMode ? grey.shade700 : grey.shade200);
 
-  Color? get soft => base.soft;
+  Color get soft => base.soft ?? (isDarkMode ? grey.shade900 : grey.shade100);
 
-  Color? get deep => base.deep;
+  Color get deep => base.deep ?? (isDarkMode ? grey.shade200 : grey.shade700);
 
-  Color? get disable => base.disable;
+  Color get disable {
+    return base.disable ?? (isDarkMode ? grey.shade400 : grey.shade600);
+  }
 
-  Color? get error => base.error;
+  Color get error => base.error ?? (isDarkMode ? red.shade600 : red.shade400);
 
-  Color? get warning => base.warning;
+  Color get warning {
+    return base.warning ?? (isDarkMode ? orange.shade600 : orange.shade400);
+  }
 
-  Color? get optional => base.optional;
-
-  // COLORS
   ThemeColors get appbarColor => color.appbar;
 
   ThemeColors get backgroundColor => color.background;
@@ -104,40 +100,7 @@ mixin ColorMixin<T extends StatefulWidget> on State<T> {
 
   ThemeColors get textColor => color.text;
 
-  // GRADIENTS
-  ThemeGradients get baseGradient => color.baseGradient;
+  ThemeColors colorOf(String name) => color.colorOf(name);
 
-  ThemeGradients get appbarGradient => color.appbarGradient;
-
-  ThemeGradients get backgroundGradient => color.backgroundGradient;
-
-  ThemeGradients get cardGradient => color.cardGradient;
-
-  ThemeGradients get bottomGradient => color.bottomGradient;
-
-  ThemeGradients get dialogGradient => color.dialogGradient;
-
-  ThemeGradients get dividerGradient => color.dividerGradient;
-
-  ThemeGradients get highlightGradient => color.highlightGradient;
-
-  ThemeGradients get hintGradient => color.hintGradient;
-
-  ThemeGradients get hoverGradient => color.hoverGradient;
-
-  ThemeGradients get iconGradient => color.iconGradient;
-
-  ThemeGradients get labelGradient => color.labelGradient;
-
-  ThemeGradients get placeholderGradient => color.placeholderGradient;
-
-  ThemeGradients get scaffoldGradient => color.scaffoldGradient;
-
-  ThemeGradients get shadowGradient => color.shadowGradient;
-
-  ThemeGradients get splashGradient => color.splashGradient;
-
-  ThemeGradients get surfaceGradient => color.surfaceGradient;
-
-  ThemeGradients get textGradient => color.textGradient;
+  ThemeGradients gradientOf(String name) => color.gradientOf(name);
 }

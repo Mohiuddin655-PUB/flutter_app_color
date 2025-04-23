@@ -37,24 +37,6 @@ void main() {
       //... add more color theme as custom
     ],
     // GRADIENTS
-    backgroundGradient: GradientThemeConfig(
-      light: ThemeGradients(
-        primary: LinearGradient(
-          colors: [
-            Colors.white,
-            Colors.grey.shade400,
-          ],
-        ),
-      ),
-      dark: ThemeGradients(
-        primary: LinearGradient(
-          colors: [
-            Colors.white,
-            Colors.grey.shade400,
-          ],
-        ),
-      ),
-    ),
     gradients: [
       GradientThemeData(
         name: "xyz",
@@ -133,7 +115,7 @@ class NormalImplement extends StatelessWidget {
               width: double.infinity,
               alignment: Alignment.center,
               decoration: BoxDecoration(
-                gradient: context.backgroundGradient.primary,
+                gradient: context.gradientOf("abc").primary,
               ),
               child: Container(
                 width: 200,
