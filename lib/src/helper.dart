@@ -13,43 +13,43 @@ extension ColorHelper on Color? {
 
   Color get holoLight => tint(0.9);
 
-  Color get t01 => tx(.01);
+  Color get t01 => _tx(.01);
 
-  Color get t02 => tx(.02);
+  Color get t02 => _tx(.02);
 
-  Color get t05 => tx(.05);
+  Color get t05 => _tx(.05);
 
-  Color get t10 => tx(.10);
+  Color get t10 => _tx(.10);
 
-  Color get t15 => tx(.15);
+  Color get t15 => _tx(.15);
 
-  Color get t20 => tx(.20);
+  Color get t20 => _tx(.20);
 
-  Color get t25 => tx(.25);
+  Color get t25 => _tx(.25);
 
-  Color get t30 => tx(.30);
+  Color get t30 => _tx(.30);
 
-  Color get t40 => tx(.40);
+  Color get t40 => _tx(.40);
 
-  Color get t50 => tx(.50);
+  Color get t50 => _tx(.50);
 
-  Color get t60 => tx(.60);
+  Color get t60 => _tx(.60);
 
-  Color get t70 => tx(.70);
+  Color get t70 => _tx(.70);
 
-  Color get t75 => tx(.75);
+  Color get t75 => _tx(.75);
 
-  Color get t80 => tx(.80);
+  Color get t80 => _tx(.80);
 
-  Color get t85 => tx(.85);
+  Color get t85 => _tx(.85);
 
-  Color get t90 => tx(.90);
+  Color get t90 => _tx(.90);
 
-  Color get t95 => tx(.95);
+  Color get t95 => _tx(.95);
 
-  Color get t98 => tx(.98);
+  Color get t98 => _tx(.98);
 
-  Color get t99 => tx(.99);
+  Color get t99 => _tx(.99);
 
   Color get shade50 => tint(0.45);
 
@@ -71,7 +71,9 @@ extension ColorHelper on Color? {
 
   Color get shade900 => shade(0.9);
 
-  Color tx(double value) => use.withValues(alpha: value);
+  Color _tx(double value) => use.withValues(alpha: value);
+
+  Color tr(double value) => _tx(value);
 
   Color tint(double value) {
     if (value <= 0 || value >= 1 || use == Colors.transparent) return use;

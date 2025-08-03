@@ -1,3 +1,8 @@
+## 1.1.2
+
+* Add Color configs instance to manage theme
+* Renamed tx to tr
+
 ## 1.1.1
 
 * ColorTheme default color supports
